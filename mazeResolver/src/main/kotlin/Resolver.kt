@@ -1,0 +1,3 @@
+interface Resolver {
+    fun resolve()
+}

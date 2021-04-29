@@ -38,6 +38,9 @@ class SampleGenerator : Generator {
         cells[2][1] = Cell.Wall
         cells[2][2] = Cell.Wall
 
-        return MazeImpl(cells)
+        cells[1][1] = Cell.Start
+        cells[3][1] = Cell.Goal
+
+        return MazeImpl(cells, Pair(1, 1), Pair(3, 1))
     }
 }
