@@ -14,14 +14,13 @@ class Player(
         move(maze.start)
     }
 
-    private fun move(xy: Pair<Int, Int>) {
-        move(xy.first, xy.second)
+    private fun move(xy: XY) {
+        move(xy.x, xy.y)
     }
 
     private fun move(x: Int, y: Int) {
     }
 
     private fun isGoal(): Boolean =
-        x == maze.goal.first && y == maze.goal.second
+        x == maze.goal.x && y == maze.goal.y
 }
-

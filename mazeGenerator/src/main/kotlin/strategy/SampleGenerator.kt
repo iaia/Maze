@@ -4,6 +4,7 @@ import Cell
 import Generator
 import Maze
 import MazeImpl
+import XY
 
 class SampleGenerator : Generator {
     /**
@@ -41,6 +42,6 @@ class SampleGenerator : Generator {
         cells[1][1] = Cell.Start
         cells[3][1] = Cell.Goal
 
-        return MazeImpl(cells, Pair(1, 1), Pair(3, 1))
+        return MazeImpl(cells, XY(1, 1), XY(3, 1))
     }
 }

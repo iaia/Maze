@@ -1,5 +1,17 @@
 interface Maze {
     val cells: Array<Array<Cell>>
-    val start: Pair<Int, Int>
-    val goal: Pair<Int, Int>
+    val start: XY
+    val goal: XY
+}
+
+@JvmInline
+value class XY(private val xy: Pair<Int, Int>) {
+    constructor(x: Int, y: Int) : this(
+        xy = Pair(x, y)
+    )
+
+    val x: Int
+        get() = xy.first
+    val y: Int
+        get() = xy.second
 }
