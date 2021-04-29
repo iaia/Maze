@@ -1,0 +1,9 @@
+
+rootProject.name = 'Maze'
+
+
+include(':mainModule')
+include(':entity')
+include(':mazeGenerator')
+include(':mazeResolver')
+
