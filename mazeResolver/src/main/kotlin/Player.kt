@@ -11,6 +11,7 @@ class Player(
     }
 
     fun move(xy: XY) {
+        println("move to $xy")
         when (maze.here(xy)) {
             is Cell.Start, is Cell.Floor -> {
                 this.x = xy.x
@@ -23,6 +24,12 @@ class Player(
 
     fun isGoal(): Boolean =
         x == maze.goal.x && y == maze.goal.y
+
+    fun currentPosition() = XY(x, y)
+
+    fun canGo(xy: XY): Boolean {
+        return maze.here(xy) != Cell.Wall
+    }
 
     private fun moveToStartPosition() {
         move(maze.start)

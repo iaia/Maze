@@ -13,6 +13,10 @@ value class XY(private val xy: Pair<Int, Int>) {
         xy = Pair(x, y)
     )
 
+    override fun toString(): String {
+        return "x=$x, y=$y"
+    }
+
     val x: Int
         get() = xy.first
     val y: Int

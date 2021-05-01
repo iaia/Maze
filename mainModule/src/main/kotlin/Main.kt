@@ -6,5 +6,5 @@ fun main() {
     maze.output()
     val resolver = SampleResolver()
     val player = Player(maze, resolver)
-    // player.start()
+    player.start()
 }
