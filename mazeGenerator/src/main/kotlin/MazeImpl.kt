@@ -5,7 +5,7 @@ internal class MazeImpl(
 ) : Maze {
 
     override fun here(xy: XY): Cell {
-        return cells[xy.x][xy.y]
+        return cells[xy.y][xy.x]
     }
 
     override fun output() {

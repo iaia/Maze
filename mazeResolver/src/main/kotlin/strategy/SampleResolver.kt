@@ -52,6 +52,6 @@ class SampleResolver : Resolver {
     }
 
     private fun alreadyTraversed(nextPosition: XY): Boolean {
-        return nextPosition == footprints.last()
+        return footprints.contains(nextPosition)
     }
 }

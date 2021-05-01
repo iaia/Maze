@@ -14,17 +14,15 @@ class Player(
         val xy = direction.calculate(x, y)
         println("move to $direction ($xy)")
         when (maze.here(xy)) {
-            is Cell.Start, is Cell.Floor -> {
+            is Cell.Start, is Cell.Goal, is Cell.Floor -> {
                 this.x = xy.x
                 this.y = xy.y
             }
             is Cell.Wall -> return
-            is Cell.Goal -> return
         }
     }
 
-    fun isGoal(): Boolean =
-        x == maze.goal.x && y == maze.goal.y
+    fun isGoal(): Boolean = maze.here(currentPosition()) is Cell.Goal
 
     fun currentPosition() = XY(x, y)
 

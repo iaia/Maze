@@ -1,5 +1,5 @@
 interface Maze {
-    val cells: Array<Array<Cell>>
+    val cells: Array<Array<Cell>> // cells[y][x]
     val start: XY
     val goal: XY
 
