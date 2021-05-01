@@ -15,7 +15,7 @@ object SampleGenerator : Generator {
      * xxxxx
      */
 
-    override fun generate(): Maze {
+    override fun generate(width: Int, height: Int): Maze {
         val cells = Array(5) {
             arrayOf<Cell>(
                 Cell.Wall(XY(0, 0)),

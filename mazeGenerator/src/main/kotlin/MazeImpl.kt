@@ -11,10 +11,11 @@ internal class MazeImpl(
     override fun output() {
         cells.forEach { row ->
             row.forEach { cell ->
+                // TODO: decoratorを作って外だしする
                 print(
                     when (cell) {
                         is Cell.Start -> "s"
-                        is Cell.Floor -> " "
+                        is Cell.Floor -> "_"
                         is Cell.Wall -> "x"
                         is Cell.Goal -> "g"
                     }

@@ -1,11 +1,13 @@
 interface Maze {
-    val cells: Array<Array<Cell>> // cells[y][x]
+    val cells: Cells // cells[y][x]
     val start: XY
     val goal: XY
 
     fun here(xy: XY): Cell
     fun output()
 }
+
+typealias Cells = Array<Array<Cell>>
 
 class XY(private val xy: Pair<Int, Int>) {
     constructor(x: Int, y: Int) : this(
