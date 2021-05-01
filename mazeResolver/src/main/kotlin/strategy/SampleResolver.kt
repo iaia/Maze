@@ -11,7 +11,7 @@ class SampleResolver : Resolver {
 
     override fun resolve(player: Player) {
         var counter = 0
-        while (!player.isGoal() && counter < 10) {
+        while (!player.isGoal() && counter < 6) {
             footprints.add(player.currentPosition())
             val direction = lookAround(player)
             player.move(direction)
