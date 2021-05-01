@@ -1,13 +1,18 @@
 package strategy
 
+import Cell
 import Direction
 import Player
 import Resolver
+import XY
 
 class SampleResolver : Resolver {
+    private val footprints = mutableListOf<XY>()
+
     override fun resolve(player: Player) {
         var counter = 0
         while (!player.isGoal() && counter < 10) {
+            footprints.add(player.currentPosition())
             val direction = lookAround(player)
             player.move(direction)
             counter += 1
@@ -15,18 +20,38 @@ class SampleResolver : Resolver {
     }
 
     private fun lookAround(player: Player): Direction {
-        if (player.canGo(Direction.LEFT)) {
+        var cell = player.checkCell(Direction.LEFT)
+        if (
+            cell !is Cell.Wall &&
+            !alreadyTraversed(cell.xy)
+        ) {
             return Direction.LEFT
         }
-        if (player.canGo(Direction.RIGHT)) {
+        cell = player.checkCell(Direction.RIGHT)
+        if (
+            cell !is Cell.Wall &&
+            !alreadyTraversed(cell.xy)
+        ) {
             return Direction.RIGHT
         }
-        if (player.canGo(Direction.ABOVE)) {
+        cell = player.checkCell(Direction.ABOVE)
+        if (
+            cell !is Cell.Wall &&
+            !alreadyTraversed(cell.xy)
+        ) {
             return Direction.ABOVE
         }
-        if (player.canGo(Direction.BELOW)) {
+        cell = player.checkCell(Direction.BELOW)
+        if (
+            cell !is Cell.Wall &&
+            !alreadyTraversed(cell.xy)
+        ) {
             return Direction.BELOW
         }
         return Direction.STOP
+    }
+
+    private fun alreadyTraversed(nextPosition: XY): Boolean {
+        return nextPosition == footprints.last()
     }
 }

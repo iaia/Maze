@@ -26,8 +26,10 @@ class Player(
     fun isGoal(): Boolean =
         x == maze.goal.x && y == maze.goal.y
 
-    fun canGo(direction: Direction): Boolean {
-        return maze.here(direction.calculate(x, y)) != Cell.Wall
+    fun currentPosition() = XY(x, y)
+
+    fun checkCell(direction: Direction): Cell {
+        return maze.here(direction.calculate(x, y))
     }
 
     private fun moveToStartPosition() {

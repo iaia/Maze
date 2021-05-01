@@ -1,6 +1,8 @@
 sealed class Cell {
-    object Floor : Cell()
-    object Wall : Cell()
-    object Start : Cell()
-    object Goal : Cell()
+    abstract val xy: XY
+
+    class Floor(override val xy: XY) : Cell()
+    class Wall(override val xy: XY) : Cell()
+    class Start(override val xy: XY) : Cell()
+    class Goal(override val xy: XY) : Cell()
 }
