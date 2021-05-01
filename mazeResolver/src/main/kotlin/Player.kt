@@ -7,20 +7,24 @@ class Player(
 
     fun start() {
         moveToStartPosition()
-        resolver.resolve()
+        resolver.resolve(this)
     }
+
+    fun move(xy: XY) {
+        when (maze.here(xy)) {
+            is Cell.Start, is Cell.Floor -> {
+                this.x = xy.x
+                this.y = xy.y
+            }
+            is Cell.Wall -> return
+            is Cell.Goal -> return
+        }
+    }
+
+    fun isGoal(): Boolean =
+        x == maze.goal.x && y == maze.goal.y
 
     private fun moveToStartPosition() {
         move(maze.start)
     }
-
-    private fun move(xy: XY) {
-        move(xy.x, xy.y)
-    }
-
-    private fun move(x: Int, y: Int) {
-    }
-
-    private fun isGoal(): Boolean =
-        x == maze.goal.x && y == maze.goal.y
 }

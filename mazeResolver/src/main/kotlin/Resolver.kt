@@ -1,3 +1,3 @@
 interface Resolver {
-    fun resolve()
+    fun resolve(player: Player)
 }

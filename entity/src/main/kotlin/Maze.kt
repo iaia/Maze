@@ -2,6 +2,8 @@ interface Maze {
     val cells: Array<Array<Cell>>
     val start: XY
     val goal: XY
+
+    fun here(xy: XY): Cell
 }
 
 @JvmInline
