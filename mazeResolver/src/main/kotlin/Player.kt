@@ -10,8 +10,9 @@ class Player(
         resolver.resolve(this)
     }
 
-    fun move(xy: XY) {
-        println("move to $xy")
+    fun move(direction: Direction) {
+        val xy = direction.calculate(x, y)
+        println("move to $direction ($xy)")
         when (maze.here(xy)) {
             is Cell.Start, is Cell.Floor -> {
                 this.x = xy.x
@@ -27,11 +28,12 @@ class Player(
 
     fun currentPosition() = XY(x, y)
 
-    fun canGo(xy: XY): Boolean {
-        return maze.here(xy) != Cell.Wall
+    fun canGo(direction: Direction): Boolean {
+        return maze.here(direction.calculate(x, y)) != Cell.Wall
     }
 
     private fun moveToStartPosition() {
-        move(maze.start)
+        x = maze.start.x
+        y = maze.start.y
     }
 }

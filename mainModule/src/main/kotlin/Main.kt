@@ -7,4 +7,6 @@ fun main() {
     val resolver = SampleResolver()
     val player = Player(maze, resolver)
     player.start()
+
+    println("result: ${player.isGoal()}")
 }
