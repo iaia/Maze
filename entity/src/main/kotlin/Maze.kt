@@ -4,6 +4,7 @@ interface Maze {
     val goal: XY
 
     fun here(xy: XY): Cell
+    fun output()
 }
 
 @JvmInline

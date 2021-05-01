@@ -6,7 +6,7 @@ import Maze
 import MazeImpl
 import XY
 
-class SampleGenerator : Generator {
+object SampleGenerator : Generator {
     /**
      * xxxxx
      * x   x

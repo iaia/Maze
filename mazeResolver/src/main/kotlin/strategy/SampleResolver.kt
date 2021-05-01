@@ -4,10 +4,10 @@ import Player
 import Resolver
 import XY
 
-internal class SampleResolver : Resolver {
+class SampleResolver : Resolver {
     override fun resolve(player: Player) {
-        while (!player.isGoal()) {
-            player.move(XY(0, 1))
-        }
+        //while (!player.isGoal()) {
+        player.move(XY(0, 1))
+        //}
     }
 }
