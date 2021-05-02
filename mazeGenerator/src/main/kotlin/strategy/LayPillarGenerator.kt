@@ -14,6 +14,11 @@ class LayPillarGenerator(
 
     override fun buildMap() {
         setStartAndGoal()
+        buildPillar()
+        layPillar()
+    }
+
+    private fun buildPillar() {
         (1 until height - 1).forEach { y ->
             (1 until width - 1).forEach { x ->
                 cells.add(
@@ -28,7 +33,6 @@ class LayPillarGenerator(
                 )
             }
         }
-        layPillar()
     }
 
     private fun layPillar() {
