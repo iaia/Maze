@@ -1,5 +1,5 @@
 import strategy.LayPillarGenerator
-import strategy.SampleResolver
+import strategy.RightHandResolver
 
 fun main() {
     // val maze = SampleGenerator(5, 5).generate()
@@ -7,7 +7,8 @@ fun main() {
     maze.output()
     println("start ${maze.start()}")
     println("goal ${maze.goal()}")
-    val resolver = SampleResolver()
+    // val resolver = SampleResolver()
+    val resolver = RightHandResolver()
     val player = Player(maze, resolver)
     player.start()
 
