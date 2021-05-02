@@ -8,6 +8,7 @@ class Player(
     fun start() {
         moveToStartPosition()
         resolver.resolve(this)
+        println("move count: ${resolver.moveCounter}")
     }
 
     fun move(direction: Direction) {

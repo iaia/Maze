@@ -6,16 +6,19 @@ import Player
 import Resolver
 import XY
 
+// sample generator のみ解決出来るresolver
+// それ以外は6手以上かかる場合に失敗する
 class SampleResolver : Resolver {
+    override var moveCounter = 0
+
     private val footprints = mutableListOf<XY>()
 
     override fun resolve(player: Player) {
-        var counter = 0
-        while (!player.isGoal() && counter < 6) {
+        while (!player.isGoal() && moveCounter < 6) {
             footprints.add(player.currentPosition())
             val direction = lookAround(player)
             player.move(direction)
-            counter += 1
+            moveCounter += 1
         }
     }
 

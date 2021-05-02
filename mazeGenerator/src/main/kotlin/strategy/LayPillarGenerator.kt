@@ -88,7 +88,6 @@ class LayPillarGenerator(
         } else {
             randomDirection(exceptDirections)
         }
-        println("cell: $cell, direction: $direction")
 
         val xy = direction.calculate(cell.xy)
         if (cells.here(xy) is Cell.Floor) {
