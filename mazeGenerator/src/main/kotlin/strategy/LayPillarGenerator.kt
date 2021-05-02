@@ -5,8 +5,8 @@ import Cells
 import Direction
 import Generator
 import Maze
-import MazeImpl
 import XY
+import model.MazeImpl
 import kotlin.random.Random
 
 class LayPillarGenerator(

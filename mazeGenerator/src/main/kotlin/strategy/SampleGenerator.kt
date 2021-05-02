@@ -4,8 +4,8 @@ import Cell
 import Cells
 import Generator
 import Maze
-import MazeImpl
 import XY
+import model.MazeImpl
 
 class SampleGenerator(
     private val width: Int,

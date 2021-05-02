@@ -1,3 +1,10 @@
+package model
+
+import Cell
+import Cells
+import Maze
+import XY
+
 internal class MazeImpl(
     private val cells: Cells,
 ) : Maze {
