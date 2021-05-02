@@ -6,9 +6,12 @@ import Player
 import Resolver
 import XY
 
+// sample generator のみ解決出来るresolver
+// それ以外は6手以上かかる場合に失敗する
 class SampleResolver : Resolver {
-    private val footprints = mutableListOf<XY>()
     override var moveCounter = 0
+
+    private val footprints = mutableListOf<XY>()
 
     override fun resolve(player: Player) {
         while (!player.isGoal() && moveCounter < 6) {

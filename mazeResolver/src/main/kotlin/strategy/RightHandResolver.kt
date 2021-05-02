@@ -5,10 +5,12 @@ import Direction
 import Player
 import Resolver
 
+// 右手法
 class RightHandResolver : Resolver {
+    override var moveCounter = 0
+
     // Playerは初期の向いている方角が無いので、とりあえず上にする
     private var playerDirection: Direction = Direction.ABOVE
-    override var moveCounter = 0
 
     override fun resolve(player: Player) {
         while (!player.isGoal() && moveCounter < 1000) {
