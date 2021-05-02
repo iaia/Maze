@@ -2,14 +2,24 @@ package strategy
 
 import Cell
 import Cells
+import Generator
+import Maze
 import XY
+import model.CellsImpl
+import model.MazeImpl
 import kotlin.random.Random
 
 abstract class BaseGenerator(
     protected var width: Int,
     protected var height: Int,
-) {
+) : Generator {
     protected lateinit var cells: Cells
+
+    final override fun generate(): Maze {
+        cells = CellsImpl(width, height)
+        buildMap()
+        return MazeImpl(cells)
+    }
 
     protected abstract fun buildMap()
 

@@ -2,27 +2,15 @@ package strategy
 
 import Cell
 import Direction
-import Generator
-import Maze
 import XY
-import model.CellsImpl
-import model.MazeImpl
 import kotlin.random.Random
 
 class LayPillarGenerator(
     width: Int,
     height: Int,
-) : Generator, BaseGenerator(width, height) {
+) : BaseGenerator(width, height) {
     private val layDirections = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW)
     private val layDirectionsForFirst = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW, Direction.ABOVE)
-
-    override fun generate(): Maze {
-        cells = CellsImpl(width, height)
-        buildMap()
-        layPillar()
-
-        return MazeImpl(cells)
-    }
 
     override fun buildMap() {
         setStartAndGoal()
@@ -40,6 +28,7 @@ class LayPillarGenerator(
                 )
             }
         }
+        layPillar()
     }
 
     private fun layPillar() {
