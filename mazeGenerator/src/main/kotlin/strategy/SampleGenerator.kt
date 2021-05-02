@@ -1,10 +1,10 @@
 package strategy
 
 import Cell
-import Cells
 import Generator
 import Maze
 import XY
+import model.CellsImpl
 import model.MazeImpl
 
 class SampleGenerator(
@@ -20,7 +20,7 @@ class SampleGenerator(
      */
 
     override fun generate(): Maze {
-        val cells = Cells(width, height)
+        val cells = CellsImpl(width, height)
 
         cells.add(Cell.Wall(XY(1, 2)))
         cells.add(Cell.Wall(XY(2, 2)))

@@ -6,6 +6,7 @@ import Direction
 import Generator
 import Maze
 import XY
+import model.CellsImpl
 import model.MazeImpl
 import kotlin.random.Random
 
@@ -18,7 +19,7 @@ class LayPillarGenerator(
     private val layDirectionsForFirst = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW, Direction.ABOVE)
 
     override fun generate(): Maze {
-        cells = Cells(width, height)
+        cells = CellsImpl(width, height)
         buildMap()
         layPillar()
 
