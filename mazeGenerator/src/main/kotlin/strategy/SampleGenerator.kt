@@ -20,7 +20,7 @@ class SampleGenerator(
      */
 
     override fun generate(): Maze {
-        val cells = CellsImpl(width, height)
+        cells = CellsImpl(width, height)
 
         buildMap()
 
