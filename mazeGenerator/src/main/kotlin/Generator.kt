@@ -1,3 +1,3 @@
 interface Generator {
-    fun generate(width: Int, height: Int): Maze
+    fun generate(): Maze
 }

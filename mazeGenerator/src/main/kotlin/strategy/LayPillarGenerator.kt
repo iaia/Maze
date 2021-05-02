@@ -9,25 +9,20 @@ import MazeImpl
 import XY
 import kotlin.random.Random
 
-class LayPillarGenerator : Generator {
-    private var width: Int = 0
-    private var height: Int = 0
+class LayPillarGenerator(
+    private var width: Int,
+    private var height: Int,
+) : Generator {
     private lateinit var cells: Cells
     private val layDirections = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW)
     private val layDirectionsForFirst = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW, Direction.ABOVE)
 
-    override fun generate(width: Int, height: Int): Maze {
-        this.width = width
-        this.height = height
-        init()
+    override fun generate(): Maze {
+        cells = Cells(width, height)
         buildMap()
         layPillar()
 
         return MazeImpl(cells)
-    }
-
-    private fun init() {
-        cells = Cells(width, height)
     }
 
     private fun setStartAndGoal() {

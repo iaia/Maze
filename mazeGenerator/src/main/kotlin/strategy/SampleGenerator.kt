@@ -7,7 +7,10 @@ import Maze
 import MazeImpl
 import XY
 
-object SampleGenerator : Generator {
+class SampleGenerator(
+    private val width: Int,
+    private val height: Int,
+) : Generator {
     /**
      * xxxxx
      * x   x
@@ -16,7 +19,7 @@ object SampleGenerator : Generator {
      * xxxxx
      */
 
-    override fun generate(width: Int, height: Int): Maze {
+    override fun generate(): Maze {
         val cells = Cells(width, height)
 
         cells.add(Cell.Wall(XY(1, 2)))
