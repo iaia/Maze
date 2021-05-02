@@ -15,6 +15,8 @@ class LayPillarGenerator : Generator {
     private lateinit var cells: Cells
     private val layDirections = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW)
     private val layDirectionsForFirst = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW, Direction.ABOVE)
+    private var start: Cell.Start? = null
+    private var goal: Cell.Goal? = null
 
     override fun generate(width: Int, height: Int): Maze {
         this.width = width
@@ -23,10 +25,15 @@ class LayPillarGenerator : Generator {
         buildPillar()
         layPillar()
 
-        // TODO: あとで
-        val start = Cell.Start(XY(0, 0))
-        val goal = Cell.Goal(XY(0, 0))
-        return MazeImpl(cells, start.xy, goal.xy)
+        setStart()
+        setGoal()
+
+        start?.let { start ->
+            goal?.let { goal ->
+                return MazeImpl(cells, start.xy, goal.xy)
+            }
+        }
+        throw Exception()
     }
 
     private fun init() {
@@ -78,6 +85,40 @@ class LayPillarGenerator : Generator {
             lay(cell, exceptDirections + direction)
         } else {
             cells[xy.y][xy.x] = Cell.Wall(xy)
+        }
+    }
+
+    private fun setStart(challengeNum: Int = 0) {
+        val y = Random.nextInt(height)
+        val x = Random.nextInt(width)
+
+        if (challengeNum > 10) {
+            throw Exception("cannot set start")
+        }
+        if (cells[y][x] is Cell.Floor) {
+            Cell.Start(XY(x, y)).also {
+                cells[y][x] = it
+                start = it
+            }
+        } else {
+            setStart(challengeNum + 1)
+        }
+    }
+
+    private fun setGoal(challengeNum: Int = 0) {
+        val y = Random.nextInt(height)
+        val x = Random.nextInt(width)
+
+        if (challengeNum > 10) {
+            throw Exception("cannot set start")
+        }
+        if (cells[y][x] is Cell.Floor) {
+            Cell.Goal(XY(x, y)).also {
+                cells[y][x] = it
+                goal = it
+            }
+        } else {
+            setGoal(challengeNum + 1)
         }
     }
 
