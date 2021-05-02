@@ -20,11 +20,8 @@ class LayPillarGenerator : Generator {
         this.width = width
         this.height = height
         init()
-        buildPillar()
+        buildMap()
         layPillar()
-
-        setStart()
-        setGoal()
 
         return MazeImpl(cells)
     }
@@ -33,15 +30,42 @@ class LayPillarGenerator : Generator {
         cells = Cells(width, height)
     }
 
-    private fun buildPillar() {
-        (1 until height).forEach { y ->
-            (0 until width).forEach { x ->
+    private fun setStartAndGoal() {
+        val startXY = generateRandomXY()
+        val goalXY = generateRandomXY(startXY)
+        cells.add(Cell.Start(startXY))
+        cells.add(Cell.Goal(goalXY))
+    }
+
+    private fun generateRandomXY(except: XY? = null): XY {
+        val x = Random.nextInt(1, width - 1)
+        val y = Random.nextInt(1, height - 1)
+        return if (x == except?.x && y == except.y) {
+            XY(
+                if (x % 2 == 0) {
+                    x + 1
+                } else {
+                    x
+                },
+                if (y % 2 == 0) {
+                    y + 1
+                } else {
+                    y
+                }
+            )
+        } else if (x % 2 == 0 && y % 2 == 0) {
+            XY(x + 1, y + 1)
+        } else {
+            XY(x, y)
+        }
+    }
+
+    private fun buildMap() {
+        setStartAndGoal()
+        (1 until height - 1).forEach { y ->
+            (1 until width - 1).forEach { x ->
                 cells.add(
                     when {
-                        (x == 0 || y == 0) ||
-                                (x == width - 1 || y == height - 1) -> {
-                            Cell.Wall(XY(x, y))
-                        }
                         x % 2 == 0 && y % 2 == 0 -> {
                             Cell.Wall(XY(x, y))
                         }
@@ -72,42 +96,10 @@ class LayPillarGenerator : Generator {
         println("cell: $cell, direction: $direction")
 
         val xy = direction.calculate(cell.xy)
-        if (cells.here(xy) is Cell.Wall) {
-            lay(cell, exceptDirections + direction)
-        } else {
+        if (cells.here(xy) is Cell.Floor) {
             cells.add(Cell.Wall(xy))
-        }
-    }
-
-    private fun setStart(challengeNum: Int = 0) {
-        val y = Random.nextInt(height)
-        val x = Random.nextInt(width)
-
-        if (challengeNum > 10) {
-            throw Exception("cannot set start")
-        }
-        if (cells.here(x, y) is Cell.Floor) {
-            Cell.Start(XY(x, y)).also {
-                cells.add(it)
-            }
         } else {
-            setStart(challengeNum + 1)
-        }
-    }
-
-    private fun setGoal(challengeNum: Int = 0) {
-        val y = Random.nextInt(height)
-        val x = Random.nextInt(width)
-
-        if (challengeNum > 10) {
-            throw Exception("cannot set start")
-        }
-        if (cells.here(x, y) is Cell.Floor) {
-            Cell.Goal(XY(x, y)).also {
-                cells.add(it)
-            }
-        } else {
-            setGoal(challengeNum + 1)
+            lay(cell, exceptDirections + direction)
         }
     }
 

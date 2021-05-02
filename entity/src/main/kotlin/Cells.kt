@@ -19,6 +19,10 @@ class Cells(private val width: Int, private val height: Int) {
     }
 
     fun add(cell: Cell) {
+        when (cells[cell.xy.y][cell.xy.x]) {
+            is Cell.Start, is Cell.Goal -> return
+            else -> Unit
+        }
         when (cell) {
             is Cell.Wall -> {
                 wallCount += 1
