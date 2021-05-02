@@ -15,8 +15,6 @@ class LayPillarGenerator : Generator {
     private lateinit var cells: Cells
     private val layDirections = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW)
     private val layDirectionsForFirst = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW, Direction.ABOVE)
-    private var start: Cell.Start? = null
-    private var goal: Cell.Goal? = null
 
     override fun generate(width: Int, height: Int): Maze {
         this.width = width
@@ -28,37 +26,30 @@ class LayPillarGenerator : Generator {
         setStart()
         setGoal()
 
-        start?.let { start ->
-            goal?.let { goal ->
-                return MazeImpl(cells, start.xy, goal.xy)
-            }
-        }
-        throw Exception()
+        return MazeImpl(cells)
     }
 
     private fun init() {
-        cells = Array(width) {
-            (0 until width).map { x ->
-                Cell.Wall(XY(x, 0))
-            }.toTypedArray()
-        }
+        cells = Cells(width, height)
     }
 
     private fun buildPillar() {
         (1 until height).forEach { y ->
             (0 until width).forEach { x ->
-                cells[y][x] = when {
-                    (x == 0 || y == 0) ||
-                            (x == width - 1 || y == height - 1) -> {
-                        Cell.Wall(XY(x, y))
+                cells.add(
+                    when {
+                        (x == 0 || y == 0) ||
+                                (x == width - 1 || y == height - 1) -> {
+                            Cell.Wall(XY(x, y))
+                        }
+                        x % 2 == 0 && y % 2 == 0 -> {
+                            Cell.Wall(XY(x, y))
+                        }
+                        else -> {
+                            Cell.Floor(XY(x, y))
+                        }
                     }
-                    x % 2 == 0 && y % 2 == 0 -> {
-                        Cell.Wall(XY(x, y))
-                    }
-                    else -> {
-                        Cell.Floor(XY(x, y))
-                    }
-                }
+                )
             }
         }
     }
@@ -67,7 +58,7 @@ class LayPillarGenerator : Generator {
         // 0は壁しかない 奇数は壁がないので無視
         for (y in 2 until (height - 1) step 2) {
             for (x in 2 until (width - 1) step 2) {
-                lay(cells[y][x])
+                lay(cells.here(x, y))
             }
         }
     }
@@ -81,10 +72,10 @@ class LayPillarGenerator : Generator {
         println("cell: $cell, direction: $direction")
 
         val xy = direction.calculate(cell.xy)
-        if (cells[xy.y][xy.x] is Cell.Wall) {
+        if (cells.here(xy) is Cell.Wall) {
             lay(cell, exceptDirections + direction)
         } else {
-            cells[xy.y][xy.x] = Cell.Wall(xy)
+            cells.add(Cell.Wall(xy))
         }
     }
 
@@ -95,10 +86,9 @@ class LayPillarGenerator : Generator {
         if (challengeNum > 10) {
             throw Exception("cannot set start")
         }
-        if (cells[y][x] is Cell.Floor) {
+        if (cells.here(x, y) is Cell.Floor) {
             Cell.Start(XY(x, y)).also {
-                cells[y][x] = it
-                start = it
+                cells.add(it)
             }
         } else {
             setStart(challengeNum + 1)
@@ -112,10 +102,9 @@ class LayPillarGenerator : Generator {
         if (challengeNum > 10) {
             throw Exception("cannot set start")
         }
-        if (cells[y][x] is Cell.Floor) {
+        if (cells.here(x, y) is Cell.Floor) {
             Cell.Goal(XY(x, y)).also {
-                cells[y][x] = it
-                goal = it
+                cells.add(it)
             }
         } else {
             setGoal(challengeNum + 1)

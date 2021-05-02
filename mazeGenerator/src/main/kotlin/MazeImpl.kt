@@ -1,27 +1,16 @@
 internal class MazeImpl(
-    override val cells: Array<Array<Cell>>,
-    override val start: XY,
-    override val goal: XY
+    private val cells: Cells,
 ) : Maze {
 
+    override fun start(): Cell.Start = cells.start!!
+
+    override fun goal(): Cell.Goal = cells.goal!!
+
     override fun here(xy: XY): Cell {
-        return cells[xy.y][xy.x]
+        return cells.here(xy)
     }
 
     override fun output() {
-        cells.forEach { row ->
-            row.forEach { cell ->
-                // TODO: decoratorを作って外だしする
-                print(
-                    when (cell) {
-                        is Cell.Start -> "s"
-                        is Cell.Floor -> "_"
-                        is Cell.Wall -> "x"
-                        is Cell.Goal -> "g"
-                    }
-                )
-            }
-            println()
-        }
+        cells.output()
     }
 }
