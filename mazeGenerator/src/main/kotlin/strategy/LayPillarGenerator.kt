@@ -1,7 +1,6 @@
 package strategy
 
 import Cell
-import Cells
 import Direction
 import Generator
 import Maze
@@ -11,10 +10,9 @@ import model.MazeImpl
 import kotlin.random.Random
 
 class LayPillarGenerator(
-    private var width: Int,
-    private var height: Int,
-) : Generator {
-    private lateinit var cells: Cells
+    width: Int,
+    height: Int,
+) : Generator, BaseGenerator(width, height) {
     private val layDirections = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW)
     private val layDirectionsForFirst = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW, Direction.ABOVE)
 
@@ -26,37 +24,7 @@ class LayPillarGenerator(
         return MazeImpl(cells)
     }
 
-    private fun setStartAndGoal() {
-        val startXY = generateRandomXY()
-        val goalXY = generateRandomXY(startXY)
-        cells.add(Cell.Start(startXY))
-        cells.add(Cell.Goal(goalXY))
-    }
-
-    private fun generateRandomXY(except: XY? = null): XY {
-        val x = Random.nextInt(1, width - 1)
-        val y = Random.nextInt(1, height - 1)
-        return if (x == except?.x && y == except.y) {
-            XY(
-                if (x % 2 == 0) {
-                    x + 1
-                } else {
-                    x
-                },
-                if (y % 2 == 0) {
-                    y + 1
-                } else {
-                    y
-                }
-            )
-        } else if (x % 2 == 0 && y % 2 == 0) {
-            XY(x + 1, y + 1)
-        } else {
-            XY(x, y)
-        }
-    }
-
-    private fun buildMap() {
+    override fun buildMap() {
         setStartAndGoal()
         (1 until height - 1).forEach { y ->
             (1 until width - 1).forEach { x ->

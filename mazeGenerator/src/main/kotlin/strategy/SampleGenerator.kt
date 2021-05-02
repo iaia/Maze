@@ -8,9 +8,9 @@ import model.CellsImpl
 import model.MazeImpl
 
 class SampleGenerator(
-    private val width: Int,
-    private val height: Int,
-) : Generator {
+    width: Int,
+    height: Int,
+) : Generator, BaseGenerator(width, height) {
     /**
      * xxxxx
      * x   x
@@ -22,6 +22,12 @@ class SampleGenerator(
     override fun generate(): Maze {
         val cells = CellsImpl(width, height)
 
+        buildMap()
+
+        return MazeImpl(cells)
+    }
+
+    override fun buildMap() {
         cells.add(Cell.Wall(XY(1, 2)))
         cells.add(Cell.Wall(XY(2, 2)))
 
@@ -33,7 +39,5 @@ class SampleGenerator(
 
         cells.add(Cell.Start(XY(1, 1)))
         cells.add(Cell.Goal(XY(1, 3)))
-
-        return MazeImpl(cells)
     }
 }
