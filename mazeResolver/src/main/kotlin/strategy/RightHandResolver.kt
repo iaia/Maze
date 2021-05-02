@@ -13,7 +13,8 @@ class RightHandResolver : Resolver {
     private var playerDirection: Direction = Direction.ABOVE
 
     override fun resolve(player: Player) {
-        while (!player.isGoal() && moveCounter < 1000) {
+        var counter = 0
+        while (!player.isGoal() && moveCounter < 1000 && counter < 1000) {
             // 右側を見る
             var direction = lookRight()
             // 右側に壁がなければ、右側を正面にし、そちらに進む
@@ -33,6 +34,7 @@ class RightHandResolver : Resolver {
             }
             // 進めなかったとき、左を向く
             turnLeft()
+            counter += 1
         }
     }
 
