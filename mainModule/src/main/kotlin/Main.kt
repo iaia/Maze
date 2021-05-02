@@ -3,7 +3,7 @@ import strategy.SampleResolver
 
 fun main() {
     // val maze = SampleGenerator.generate(5, 5)
-    val maze = LayPillarGenerator().generate(12, 12)
+    val maze = LayPillarGenerator().generate(7, 7)
     maze.output()
     println("start x=${maze.start.x}, y=${maze.start.y}")
     println("goal x=${maze.goal.x}, y=${maze.goal.y}")

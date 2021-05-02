@@ -1,4 +1,7 @@
-enum class Direction(val x: Int, val y: Int) {
+enum class Direction(
+    private val x: Int,
+    private val y: Int
+) {
     LEFT(-1, 0),
     RIGHT(1, 0),
     ABOVE(0, -1),
