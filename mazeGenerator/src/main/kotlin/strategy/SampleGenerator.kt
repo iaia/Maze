@@ -1,16 +1,12 @@
 package strategy
 
 import Cell
-import Generator
-import Maze
 import XY
-import model.CellsImpl
-import model.MazeImpl
 
 class SampleGenerator(
     width: Int,
     height: Int,
-) : Generator, BaseGenerator(width, height) {
+) : BaseGenerator(width, height) {
     /**
      * xxxxx
      * x   x
@@ -18,14 +14,6 @@ class SampleGenerator(
      * x   x
      * xxxxx
      */
-
-    override fun generate(): Maze {
-        val cells = CellsImpl(width, height)
-
-        buildMap()
-
-        return MazeImpl(cells)
-    }
 
     override fun buildMap() {
         cells.add(Cell.Wall(XY(1, 2)))

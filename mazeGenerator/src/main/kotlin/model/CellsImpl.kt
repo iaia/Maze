@@ -49,9 +49,19 @@ class CellsImpl(
         cells[cell.xy.y][cell.xy.x] = cell
     }
 
-    override fun here(x: Int, y: Int): Cell = cells[y][x] ?: throw Exception()
+    override fun here(x: Int, y: Int): Cell? =
+        try {
+            cells[y][x]
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            null
+        }
 
-    override fun here(xy: XY): Cell = cells[xy.y][xy.x] ?: throw Exception()
+    override fun here(xy: XY): Cell? =
+        try {
+            cells[xy.y][xy.x]
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            null
+        }
 
     override fun output() {
         cells.forEach { row ->

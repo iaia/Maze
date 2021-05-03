@@ -2,30 +2,22 @@ package strategy
 
 import Cell
 import Direction
-import Generator
-import Maze
 import XY
-import model.CellsImpl
-import model.MazeImpl
-import kotlin.random.Random
 
 class LayPillarGenerator(
     width: Int,
     height: Int,
-) : Generator, BaseGenerator(width, height) {
+) : BaseGenerator(width, height) {
     private val layDirections = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW)
     private val layDirectionsForFirst = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW, Direction.ABOVE)
 
-    override fun generate(): Maze {
-        cells = CellsImpl(width, height)
-        buildMap()
-        layPillar()
-
-        return MazeImpl(cells)
-    }
-
     override fun buildMap() {
         setStartAndGoal()
+        buildPillar()
+        layPillar()
+    }
+
+    private fun buildPillar() {
         (1 until height - 1).forEach { y ->
             (1 until width - 1).forEach { x ->
                 cells.add(
@@ -51,7 +43,8 @@ class LayPillarGenerator(
         }
     }
 
-    private fun lay(cell: Cell, exceptDirections: Array<Direction> = emptyArray()) {
+    private fun lay(cell: Cell?, exceptDirections: Array<Direction> = emptyArray()) {
+        cell ?: return
         val direction = if (cell.xy.y == 2) {
             randomDirectionForFirst(exceptDirections)
         } else {
@@ -69,12 +62,12 @@ class LayPillarGenerator(
     private fun randomDirectionForFirst(exceptDirections: Array<Direction> = emptyArray()): Direction {
         return layDirectionsForFirst.filterNot {
             exceptDirections.contains(it)
-        }[Random.nextInt(4 - exceptDirections.size)]
+        }.random()
     }
 
     private fun randomDirection(exceptDirections: Array<Direction> = emptyArray()): Direction {
         return layDirections.filterNot {
             exceptDirections.contains(it)
-        }[Random.nextInt(3 - exceptDirections.size)]
+        }.random()
     }
 }

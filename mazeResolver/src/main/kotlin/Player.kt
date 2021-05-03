@@ -27,7 +27,7 @@ class Player(
 
     fun currentPosition() = XY(x, y)
 
-    fun checkCell(direction: Direction): Cell {
+    fun checkCell(direction: Direction): Cell? {
         return maze.here(direction.calculate(x, y))
     }
 
