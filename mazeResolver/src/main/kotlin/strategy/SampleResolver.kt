@@ -25,6 +25,7 @@ class SampleResolver : Resolver {
     private fun lookAround(player: Player): Direction {
         var cell = player.checkCell(Direction.LEFT)
         if (
+            cell != null &&
             cell !is Cell.Wall &&
             !alreadyTraversed(cell.xy)
         ) {
@@ -32,6 +33,7 @@ class SampleResolver : Resolver {
         }
         cell = player.checkCell(Direction.RIGHT)
         if (
+            cell != null &&
             cell !is Cell.Wall &&
             !alreadyTraversed(cell.xy)
         ) {
@@ -39,6 +41,7 @@ class SampleResolver : Resolver {
         }
         cell = player.checkCell(Direction.ABOVE)
         if (
+            cell != null &&
             cell !is Cell.Wall &&
             !alreadyTraversed(cell.xy)
         ) {
@@ -46,6 +49,7 @@ class SampleResolver : Resolver {
         }
         cell = player.checkCell(Direction.BELOW)
         if (
+            cell != null &&
             cell !is Cell.Wall &&
             !alreadyTraversed(cell.xy)
         ) {

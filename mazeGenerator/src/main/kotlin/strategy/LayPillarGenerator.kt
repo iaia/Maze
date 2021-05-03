@@ -44,7 +44,8 @@ class LayPillarGenerator(
         }
     }
 
-    private fun lay(cell: Cell, exceptDirections: Array<Direction> = emptyArray()) {
+    private fun lay(cell: Cell?, exceptDirections: Array<Direction> = emptyArray()) {
+        cell ?: return
         val direction = if (cell.xy.y == 2) {
             randomDirectionForFirst(exceptDirections)
         } else {

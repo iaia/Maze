@@ -16,11 +16,19 @@ class DiggingGenerator(
         Direction.BELOW,
     )
 
+    private val branches: MutableList<XY> = mutableListOf()
+
     override fun buildMap() {
         setStartAndGoal()
         fillMap()
         cells.add(Cell.Floor(XY(1, 1)))
-        dig(1, 1)
+        branches.add(XY(1, 1))
+        var counter = 0
+        while (branches.isNotEmpty() && counter < 1000) {
+            val xy = branches.last()
+            dig(xy)
+            counter += 1
+        }
     }
 
     private fun fillMap() {
@@ -31,14 +39,16 @@ class DiggingGenerator(
         }
     }
 
-    private fun dig(x: Int, y: Int) {
-        val xy = XY(x, y)
+    private fun dig(xy: XY) {
         val direction = randomDirection()
         val cell1 = cells.here(direction.calculate(xy))
         val cell2 = cells.here(direction.calculate(cell1.xy))
         if (canDig(cell1) && canDig(cell2)) {
             cells.add(Cell.Floor(cell1.xy))
             cells.add(Cell.Floor(cell2.xy))
+            branches.add(cell2.xy)
+        } else {
+            branches.remove(xy)
         }
     }
 

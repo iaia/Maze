@@ -13,7 +13,7 @@ internal class MazeImpl(
 
     override fun goal(): Cell.Goal = cells.goal!!
 
-    override fun here(xy: XY): Cell {
+    override fun here(xy: XY): Cell? {
         return cells.here(xy)
     }
 
