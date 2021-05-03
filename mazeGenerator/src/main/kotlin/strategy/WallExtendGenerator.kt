@@ -3,7 +3,6 @@ package strategy
 import Cell
 import Direction
 import XY
-import kotlin.random.Random
 
 class WallExtendGenerator(
     width: Int,
@@ -17,54 +16,53 @@ class WallExtendGenerator(
     override fun buildMap() {
         setStartAndGoal()
         fillMap()
-        selectOuterWall()
+        selectPositions()
 
         while (selectedXY.isNotEmpty()) {
             val xy = selectedXY.random()
-            extendWall(xy)
+            if (cells.here(xy) is Cell.Floor) {
+                cells.add(Cell.Wall(xy))
+                extendWall(xy)
+            }
             selectedXY.remove(xy)
         }
     }
 
-    private fun selectOuterWall() {
+    private fun selectPositions() {
         for (x in 2 until width - 1 step 2) {
-            selectedXY.add(XY(x, 0))
-            selectedXY.add(XY(x, height - 1))
-        }
-        for (y in 2 until height - 1 step 2) {
-            selectedXY.add(XY(0, y))
-            selectedXY.add(XY(width - 1, y))
+            for (y in 2 until height - 1 step 2) {
+                selectedXY.add(XY(x, y))
+            }
         }
     }
 
-    private fun extendWall(xy: XY, except: Array<Direction> = emptyArray()) {
+    private fun extendWall(
+        xy: XY,
+        building: MutableList<XY> = mutableListOf(),
+        except: Array<Direction> = emptyArray()
+    ) {
         val direction = randomDirection(except) ?: return
         val cell1 = cells.here(direction.calculate(xy))
-        if (cell1 == null) {
-            extendWall(xy, except + direction)
+        if (cell1 == null || building.contains(cell1.xy)) {
+            extendWall(xy, building, except + direction)
             return
         }
         val cell2 = cells.here(direction.calculate(cell1.xy))
-        if (cell2 == null) {
-            extendWall(xy, except + direction)
+        if (cell2 == null || building.contains(cell2.xy)) {
+            extendWall(xy, building, except + direction)
             return
         }
-        val cell3 = cells.here(direction.calculate(cell2.xy))
-        if (cell3 == null) {
-            extendWall(xy, except + direction)
+
+        cells.add(Cell.Wall(cell1.xy))
+        building.add(cell1.xy)
+
+        if (cell2 is Cell.Wall) {
             return
-        }
-        if (cell1 is Cell.Floor && cell2 is Cell.Floor && cell3 is Cell.Floor) {
-            cells.add(Cell.Wall(cell1.xy))
-            cells.add(Cell.Wall(cell2.xy))
-            // 伸ばした先から更に伸ばすか、伸ばした元から別の方向に伸ばすか
-            if (Random.nextBoolean()) {
-                extendWall(xy, except + direction)
-            }
-            extendWall(cell2.xy)
         } else {
-            extendWall(xy, except + direction)
+            cells.add(Cell.Wall(cell2.xy))
+            building.add(cell2.xy)
         }
+        extendWall(cell2.xy)
     }
 
     private fun fillMap() {
