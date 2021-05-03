@@ -3,7 +3,6 @@ package strategy
 import Cell
 import Direction
 import XY
-import kotlin.random.Random
 
 class LayPillarGenerator(
     width: Int,
@@ -63,12 +62,12 @@ class LayPillarGenerator(
     private fun randomDirectionForFirst(exceptDirections: Array<Direction> = emptyArray()): Direction {
         return layDirectionsForFirst.filterNot {
             exceptDirections.contains(it)
-        }[Random.nextInt(4 - exceptDirections.size)]
+        }.random()
     }
 
     private fun randomDirection(exceptDirections: Array<Direction> = emptyArray()): Direction {
         return layDirections.filterNot {
             exceptDirections.contains(it)
-        }[Random.nextInt(3 - exceptDirections.size)]
+        }.random()
     }
 }
