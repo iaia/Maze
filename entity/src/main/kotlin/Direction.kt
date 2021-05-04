@@ -6,7 +6,6 @@ enum class Direction(
     RIGHT(1, 0),
     ABOVE(0, -1),
     BELOW(0, 1),
-    STOP(0, 0),
     ;
 
     fun calculate(x: Int, y: Int): XY = XY(x + this.x, y + this.y)
