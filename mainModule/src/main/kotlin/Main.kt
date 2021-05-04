@@ -6,7 +6,7 @@ fun main() {
     // val maze = SampleGenerator(5, 5).generate()
     // val maze = LayPillarGenerator(15, 15).generate()
     // val maze = DiggingGenerator(15, 15).generate()
-    val maze = WallExtendGenerator(15, 15).generate()
+    val maze = WallExtendGenerator(9, 9).generate()
     maze.output()
     println("start ${maze.start()}")
     println("goal ${maze.goal()}")
