@@ -32,7 +32,7 @@ class Player(
     }
 
     private fun moveToStartPosition() {
-        val start = maze.start()
+        val start = maze.start
         x = start.xy.x
         y = start.xy.y
     }
