@@ -2,22 +2,22 @@ class Player(
     private val maze: Maze,
     private val resolver: Resolver,
 ) {
-    private var x: Int = 0
-    private var y: Int = 0
+    lateinit var currentCell: Cell
+    private var moveCounter: Int = 0
 
     fun start() {
         moveToStartPosition()
         resolver.resolve(this)
-        println("move count: ${resolver.moveCounter}")
+        println("move count: $moveCounter")
     }
 
     fun move(direction: Direction) {
-        val xy = direction.calculate(x, y)
+        val xy = direction.calculate(currentCell.xy.x, currentCell.xy.y)
         println("move to $direction ($xy)")
-        when (maze.here(xy)) {
+        when (val cell = maze.here(xy)) {
             is Cell.Start, is Cell.Goal, is Cell.Floor -> {
-                this.x = xy.x
-                this.y = xy.y
+                currentCell = cell
+                moveCounter += 1
             }
             is Cell.Wall -> return
         }
@@ -25,15 +25,14 @@ class Player(
 
     fun isGoal(): Boolean = maze.here(currentPosition()) is Cell.Goal
 
-    fun currentPosition() = XY(x, y)
+    fun currentPosition(): XY = currentCell.xy
 
     fun checkCell(direction: Direction): Cell? {
-        return maze.here(direction.calculate(x, y))
+        return maze.here(direction.calculate(currentCell.xy))
     }
 
     private fun moveToStartPosition() {
-        val start = maze.start
-        x = start.xy.x
-        y = start.xy.y
+        currentCell = maze.start
+        moveCounter = 0
     }
 }
