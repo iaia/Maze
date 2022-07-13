@@ -1,7 +1,6 @@
 package strategy
 
 import Generator
-import io.kotest.core.spec.style.DescribeSpec
 
 internal class WallExtendGeneratorTest : DescribeSpec({
     describe("5x5") {
