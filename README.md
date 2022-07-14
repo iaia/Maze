@@ -1,1 +1,5 @@
 # Maze
+
+# License
+
+MIT
