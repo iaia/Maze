@@ -12,10 +12,12 @@ allprojects {
         mavenCentral()
     }
 
-    signing {
-        sign publishing.publications
-    }
 }
 
 group = "dev.iaiabot.maze"
-version = "1.0-SNAPSHOT"
+version = "1.0"
+
+signing {
+    sign publishing.publications
+}
+
