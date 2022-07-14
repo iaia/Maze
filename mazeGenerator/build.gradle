@@ -1,27 +1,67 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.5.0-RC'
+    id "org.jetbrains.kotlin.jvm" version "$kotlin_version"
 }
 
-group = 'dev.iaiabot.maze'
-version = '1.0-SNAPSHOT'
+group = "dev.iaiabot.maze"
+version = "1.0"
+ext.version = version
 
 dependencies {
-    implementation project(':entity')
-    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
-    testImplementation('io.kotest:kotest-runner-junit5:v4.5.0.RC1')
-
+    implementation project(":entity")
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit5"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation('io.kotest:kotest-runner-junit5:5.3.1')
 }
 
 test {
     useJUnitPlatform()
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = '1.8'
-}
+publishing {
+    repositories {
+        maven {
+            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = ossrhUsername
+                password = ossrhPassword
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = "mazeGenerator"
+            version = "1.0"
 
-compileTestKotlin {
-    kotlinOptions.jvmTarget = '1.8'
+            from components.release
+
+            from components.java
+
+            pom {
+                name = "MazeGenerator"
+                description = "Generate Maze"
+                url = "https://github.com/iaia/maze"
+                licenses {
+                    license {
+                        name = "MIT"
+                        url = "https://opensource.org/licenses/MIT"
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = "iaia"
+                        name = "iaia"
+                        email = "iaia72160@gmail.com"
+                    }
+                }
+                scm {
+                    connection = "scm:git:git://github.com/iaia/maze.git"
+                    developerConnection = "scm:git:ssh://github.com/iaia/maze.git"
+                    url = "https://github.com/iaia/maze"
+                }
+            }
+        }
+    }
 }

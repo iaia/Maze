@@ -20,6 +20,7 @@ class Player(
                 moveCounter += 1
             }
             is Cell.Wall -> return
+            else -> {}
         }
     }
 

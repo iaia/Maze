@@ -1,8 +1,23 @@
-group = 'dev.iaiabot.maze'
-version = '1.0-SNAPSHOT'
+buildscript {
+    ext.kotlin_version = "1.7.10"
+}
+
+plugins {
+    id "signing"
+    id "maven-publish"
+}
 
 allprojects {
     repositories {
         mavenCentral()
     }
+
 }
+
+group = "dev.iaiabot.maze"
+version = "1.0"
+
+signing {
+    sign publishing.publications
+}
+
