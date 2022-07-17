@@ -4,7 +4,12 @@ plugins {
 
 group = "dev.iaiabot.maze"
 version = "1.0"
-ext.version = version
+
+ext {
+    PUBLISH_GROUP_ID = "dev.iaiabot.maze"
+    PUBLISH_VERSION = "1.0"
+    PUBLISH_ARTIFACT_ID = "mazeGenerator"
+}
 
 dependencies {
     implementation project(":entity")
@@ -18,50 +23,4 @@ test {
     useJUnitPlatform()
 }
 
-publishing {
-    repositories {
-        maven {
-            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            credentials {
-                username = ossrhUsername
-                password = ossrhPassword
-            }
-        }
-    }
-    publications {
-        maven(MavenPublication) {
-            groupId = group
-            artifactId = "mazeGenerator"
-            version = "1.0"
-
-            from components.release
-
-            from components.java
-
-            pom {
-                name = "MazeGenerator"
-                description = "Generate Maze"
-                url = "https://github.com/iaia/maze"
-                licenses {
-                    license {
-                        name = "MIT"
-                        url = "https://opensource.org/licenses/MIT"
-                    }
-                }
-
-                developers {
-                    developer {
-                        id = "iaia"
-                        name = "iaia"
-                        email = "iaia72160@gmail.com"
-                    }
-                }
-                scm {
-                    connection = "scm:git:git://github.com/iaia/maze.git"
-                    developerConnection = "scm:git:ssh://github.com/iaia/maze.git"
-                    url = "https://github.com/iaia/maze"
-                }
-            }
-        }
-    }
-}
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
