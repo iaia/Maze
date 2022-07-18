@@ -13,8 +13,12 @@ fun main() {
         generator = SampleGenerator(),
         sequentialOutput = true,
     )
+    println("------------------ setup")
     maze.setup()
+    println("------------------ generate")
     maze.buildMap()
+    println("------------------ output")
+    maze.output()
 
     // val resolver = SampleResolver()
     // val resolver = RightHandResolver()

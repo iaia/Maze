@@ -41,6 +41,5 @@ class MazeImpl private constructor(
 
     override fun output() {
         cells.output()
-        cells.outputProcedure()
     }
 }

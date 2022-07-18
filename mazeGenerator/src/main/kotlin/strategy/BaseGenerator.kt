@@ -20,11 +20,15 @@ abstract class BaseGenerator : Generator {
         // 外壁を作る
         (0 until width).forEach { x ->
             cells.add(Cell.Wall(XY(x, 0)))
-            cells.add(Cell.Wall(XY(x, height - 1)))
         }
         (1 until height).forEach { y ->
-            cells.add(Cell.Wall(XY(0, y)))
             cells.add(Cell.Wall(XY(width - 1, y)))
+        }
+        (width - 1 downTo 0).forEach { x ->
+            cells.add(Cell.Wall(XY(x, height - 1)))
+        }
+        (height - 1 downTo 1).forEach { y ->
+            cells.add(Cell.Wall(XY(0, y)))
         }
     }
 
