@@ -35,35 +35,30 @@ abstract class BaseGenerator : Generator {
     }
 
     private fun setStartAndGoal() {
-        val startXY = XY(1, 1)
-        cells.add(Cell.Start(startXY))
+        cells.add(Cell.Start(XY(1, 1)))
         if (width == 5 && height == 5) {
             cells.add(Cell.Goal(XY(1, 3)))
         } else {
-            cells.add(Cell.Goal(generateRandomGoalXY(startXY)))
+            cells.add(Cell.Goal(generateRandomGoalXY()))
         }
     }
 
-    private fun generateRandomGoalXY(except: XY? = null): XY {
+    private fun generateRandomGoalXY(): XY {
         val x = Random.nextInt(3, width - 1)
         val y = Random.nextInt(3, height - 1)
-        return if (x == except?.x && y == except.y) {
-            XY(
-                if (x % 2 == 0) {
-                    x + 1
-                } else {
-                    x
-                },
-                if (y % 2 == 0) {
-                    y + 1
-                } else {
-                    y
-                }
-            )
-        } else if (x % 2 == 0 && y % 2 == 0) {
-            XY(x + 1, y + 1)
-        } else {
-            XY(x, y)
+        return when {
+            x % 2 == 0 && y % 2 == 0 -> {
+                XY(x + 1, y + 1)
+            }
+            x % 2 == 0 -> {
+                XY(x + 1, y)
+            }
+            y % 2 == 0 -> {
+                XY(x, y + 1)
+            }
+            else -> {
+                XY(x, y)
+            }
         }
     }
 }

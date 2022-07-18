@@ -13,18 +13,16 @@ class DiggingGenerator : BaseGenerator() {
         Direction.BELOW,
     )
 
-    private val branches: MutableMap<XY, Array<Direction>> = mutableMapOf()
+    private val branches: MutableMap<XY, MutableList<Direction>> = mutableMapOf()
 
     private var alreadyDugToGoal: Boolean = false
 
     override fun buildMap() {
         fillMap()
-        branches[XY(1, 1)] = emptyArray()
-        var counter = 0
-        while (branches.isNotEmpty() && counter < 1000) {
+        branches[XY(1, 1)] = mutableListOf(Direction.LEFT, Direction.ABOVE)
+        while (branches.isNotEmpty()) {
             val xy = branches.entries.last()
             dig(xy.key, xy.value)
-            counter += 1
         }
     }
 
@@ -36,28 +34,40 @@ class DiggingGenerator : BaseGenerator() {
         }
     }
 
-    private fun dig(xy: XY, except: Array<Direction>) {
+    private fun dig(xy: XY, except: List<Direction>) {
         val direction = randomDirection(except)
         if (direction == null) {
             branches.remove(xy)
             return
         }
-        branches[xy] = except + direction
+        branches[xy]?.add(direction)
         val cell1 = cells.here(direction.calculate(xy)) ?: throw Exception("")
         val cell2 = cells.here(direction.calculate(cell1.xy))
         if (canDig(cell1) && canDig(cell2)) {
             cells.add(Cell.Floor(cell1.xy))
-            if (cell2 is Cell.Goal) {
-                alreadyDugToGoal = true
-            } else {
-                cells.add(Cell.Floor(cell2!!.xy))
-                branches[cell2.xy] = arrayOf(direction)
+            when (cell2) {
+                is Cell.Start -> {
+                }
+                is Cell.Goal -> {
+                    alreadyDugToGoal = true
+                }
+                is Cell.Floor -> {
+                    branches[cell2.xy]?.add(direction.opposite())
+                }
+                is Cell.Wall -> {
+                    cells.add(Cell.Floor(cell2.xy))
+                    branches[cell2.xy] = mutableListOf(direction.opposite())
+                }
+                else -> {}
             }
         }
     }
 
     private fun canDig(cell: Cell?): Boolean {
         cell ?: return false
+        if (cell is Cell.Start) {
+            return false
+        }
         if (cell is Cell.Goal && alreadyDugToGoal) {
             return false
         }
@@ -68,7 +78,7 @@ class DiggingGenerator : BaseGenerator() {
         }
     }
 
-    private fun randomDirection(except: Array<Direction> = emptyArray()): Direction? {
+    private fun randomDirection(except: List<Direction> = emptyList()): Direction? {
         return directions.filterNot {
             except.contains(it)
         }.randomOrNull()

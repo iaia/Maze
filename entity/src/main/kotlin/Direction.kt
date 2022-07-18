@@ -10,4 +10,11 @@ enum class Direction(
 
     fun calculate(x: Int, y: Int): XY = XY(x + this.x, y + this.y)
     fun calculate(xy: XY): XY = XY(xy.x + this.x, xy.y + this.y)
+
+    fun opposite() = when (this) {
+        LEFT -> RIGHT
+        RIGHT -> LEFT
+        ABOVE -> BELOW
+        BELOW -> ABOVE
+    }
 }
