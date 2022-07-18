@@ -41,6 +41,8 @@ afterEvaluate {
                 version = PUBLISH_VERSION
 
                 from components.java
+                artifact javadocJar
+                artifact sourcesJar
 
                 pom {
                     name = PUBLISH_ARTIFACT_ID
