@@ -4,12 +4,13 @@ import Cell
 import Generator
 import Maze
 import XY
+import decorator.Decorator
 
 class MazeImpl private constructor(
     width: Int,
     height: Int,
     private val generator: Generator,
-    sequentialOutput: Boolean,
+    decorator: Decorator,
 ) : Maze {
 
     companion object {
@@ -17,13 +18,13 @@ class MazeImpl private constructor(
             width: Int,
             height: Int,
             generator: Generator,
-            sequentialOutput: Boolean = false,
+            decorator: Decorator,
         ): Maze {
-            return MazeImpl(width, height, generator, sequentialOutput)
+            return MazeImpl(width, height, generator, decorator)
         }
     }
 
-    private val cells = CellsImpl(width, height, sequentialOutput)
+    private val cells = CellsImpl(width, height, decorator)
     override val start: Cell
         get() = cells.start!!
 

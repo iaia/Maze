@@ -1,3 +1,4 @@
+import decorator.StandardOutputDecorator
 import model.MazeImpl
 import strategy.DiggingGenerator
 
@@ -7,7 +8,7 @@ fun main() {
         width = 7,
         height = 7,
         generator = DiggingGenerator(),
-        sequentialOutput = true,
+        decorator = StandardOutputDecorator(sequentialOutput = true),
     )
     println("------------------ setup")
     maze.setup()

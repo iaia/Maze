@@ -3,11 +3,12 @@ package model
 import Cell
 import Cells
 import XY
+import decorator.Decorator
 
 class CellsImpl(
     override val width: Int,
     override val height: Int,
-    private val sequentialOutput: Boolean,
+    private val decorator: Decorator,
 ) : Cells {
     private val cells: Array<Array<Cell?>> = Array(width) {
         arrayOfNulls(height)
@@ -17,7 +18,6 @@ class CellsImpl(
         private set
     override var goal: Cell.Goal? = null
         private set
-    override val procedure: MutableList<Cell> = mutableListOf()
 
     override fun add(cell: Cell) {
         when (cells[cell.xy.y][cell.xy.x]) {
@@ -37,10 +37,7 @@ class CellsImpl(
             else -> Unit
         }
         cells[cell.xy.y][cell.xy.x] = cell
-        procedure.add(cell)
-        if (sequentialOutput) {
-            println(cell.toString())
-        }
+        decorator.sequentialOutput(cell)
     }
 
     override fun here(x: Int, y: Int): Cell? =
@@ -58,26 +55,6 @@ class CellsImpl(
         }
 
     override fun output() {
-        cells.forEach { row ->
-            row.forEach { cell ->
-                // TODO: decoratorを作って外だしする
-                print(
-                    when (cell) {
-                        is Cell.Start -> "s"
-                        is Cell.Floor -> "_"
-                        is Cell.Wall -> "x"
-                        is Cell.Goal -> "g"
-                        else -> "e"
-                    }
-                )
-            }
-            println()
-        }
-    }
-
-    override fun outputProcedure() {
-        procedure.forEach {
-            println(it.toString())
-        }
+        decorator.fullOutput(cells)
     }
 }
