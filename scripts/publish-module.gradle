@@ -1,0 +1,74 @@
+apply plugin: "signing"
+apply plugin: "maven-publish"
+
+signing {
+    sign publishing.publications
+}
+
+group = PUBLISH_GROUP_ID
+version = PUBLISH_VERSION
+
+task javadocJar(type: Jar) {
+    archiveClassifier.set("javadoc")
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set("sources")
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+                credentials {
+                    username = ossrhUsername
+                    password = ossrhPassword
+                }
+            }
+        }
+
+        publications {
+            mavenJava(MavenPublication) {
+                groupId = PUBLISH_GROUP_ID
+                artifactId = PUBLISH_ARTIFACT_ID
+                version = PUBLISH_VERSION
+
+                from components.java
+                artifact javadocJar
+                artifact sourcesJar
+
+                pom {
+                    name = PUBLISH_ARTIFACT_ID
+                    description = "maze generator/resolver"
+                    url = "https://github.com/iaia/Maze"
+                    licenses {
+                        license {
+                            name = "MIT"
+                            url = "https://opensource.org/licenses/MIT"
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = "iaia"
+                            name = "iaia"
+                            email = "iaia72160@gmail.com"
+                        }
+                    }
+                    scm {
+                        connection = "scm:git:github.com/iaia/Maze.git"
+                        developerConnection = "scm:git:ssh://github.com/iaia/Maze.git"
+                        url = "https://github.com/iaia/Maze"
+                    }
+                }
+            }
+        }
+    }
+}
