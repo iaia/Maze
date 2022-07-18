@@ -1,3 +1,4 @@
 interface Generator {
-    fun generate(): Maze
+    fun setup(cells: Cells)
+    fun buildMap()
 }

@@ -3,10 +3,7 @@ package strategy
 import Cell
 import XY
 
-class SampleGenerator(
-    width: Int,
-    height: Int,
-) : BaseGenerator(width, height) {
+class SampleGenerator : BaseGenerator() {
     /**
      * xxxxx
      * x   x

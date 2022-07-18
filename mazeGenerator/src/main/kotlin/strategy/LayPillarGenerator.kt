@@ -4,10 +4,7 @@ import Cell
 import Direction
 import XY
 
-class LayPillarGenerator(
-    width: Int,
-    height: Int,
-) : BaseGenerator(width, height) {
+class LayPillarGenerator : BaseGenerator() {
     private val layDirections = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW)
     private val layDirectionsForFirst = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW, Direction.ABOVE)
 

@@ -1,19 +1,39 @@
 package model
 
 import Cell
-import Cells
+import Generator
 import Maze
 import XY
 
-internal class MazeImpl(
-    private val cells: Cells,
+class MazeImpl private constructor(
+    width: Int,
+    height: Int,
+    private val generator: Generator,
+    sequentialOutput: Boolean,
 ) : Maze {
 
-    override val start: Cell.Start
+    companion object {
+        fun generate(
+            width: Int,
+            height: Int,
+            generator: Generator,
+            sequentialOutput: Boolean = false,
+        ): Maze {
+            return MazeImpl(width, height, generator, sequentialOutput)
+        }
+    }
+
+    private val cells = CellsImpl(width, height, sequentialOutput)
+    override val start: Cell
         get() = cells.start!!
 
-    override val goal: Cell.Goal
-        get() = cells.goal!!
+    override fun setup() {
+        generator.setup(cells)
+    }
+
+    override fun buildMap() {
+        generator.buildMap()
+    }
 
     override fun here(xy: XY): Cell? {
         return cells.here(xy)

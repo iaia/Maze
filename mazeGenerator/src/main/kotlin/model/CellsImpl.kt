@@ -5,8 +5,9 @@ import Cells
 import XY
 
 class CellsImpl(
-    private val width: Int,
-    private val height: Int,
+    override val width: Int,
+    override val height: Int,
+    private val sequentialOutput: Boolean,
 ) : Cells {
     private val cells: Array<Array<Cell?>> = Array(width) {
         arrayOfNulls(height)
@@ -17,18 +18,6 @@ class CellsImpl(
     override var goal: Cell.Goal? = null
         private set
     override val procedure: MutableList<Cell> = mutableListOf()
-
-    init {
-        // 外壁を作る
-        (0 until width).forEach { x ->
-            add(Cell.Wall(XY(x, 0)))
-            add(Cell.Wall(XY(x, height - 1)))
-        }
-        (1 until height).forEach { y ->
-            add(Cell.Wall(XY(0, y)))
-            add(Cell.Wall(XY(width - 1, y)))
-        }
-    }
 
     override fun add(cell: Cell) {
         when (cells[cell.xy.y][cell.xy.x]) {
@@ -49,6 +38,9 @@ class CellsImpl(
         }
         cells[cell.xy.y][cell.xy.x] = cell
         procedure.add(cell)
+        if (sequentialOutput) {
+            println(cell.toString())
+        }
     }
 
     override fun here(x: Int, y: Int): Cell? =

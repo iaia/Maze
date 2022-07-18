@@ -1,7 +1,8 @@
 interface Maze {
-    val start: Cell.Start
-    val goal: Cell.Goal
+    val start: Cell
 
+    fun setup()
+    fun buildMap()
     fun here(xy: XY): Cell?
     fun output()
 }

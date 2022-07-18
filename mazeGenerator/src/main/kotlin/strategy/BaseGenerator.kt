@@ -3,25 +3,30 @@ package strategy
 import Cell
 import Cells
 import Generator
-import Maze
 import XY
-import model.CellsImpl
-import model.MazeImpl
 import kotlin.random.Random
 
-abstract class BaseGenerator(
-    protected var width: Int,
-    protected var height: Int,
-) : Generator {
+abstract class BaseGenerator : Generator {
     protected lateinit var cells: Cells
 
-    final override fun generate(): Maze {
-        cells = CellsImpl(width, height)
-        buildMap()
-        return MazeImpl(cells)
-    }
+    protected val width: Int
+        get() = cells.width
 
-    protected abstract fun buildMap()
+    protected val height: Int
+        get() = cells.height
+
+    override fun setup(cells: Cells) {
+        this.cells = cells
+        // 外壁を作る
+        (0 until width).forEach { x ->
+            cells.add(Cell.Wall(XY(x, 0)))
+            cells.add(Cell.Wall(XY(x, height - 1)))
+        }
+        (1 until height).forEach { y ->
+            cells.add(Cell.Wall(XY(0, y)))
+            cells.add(Cell.Wall(XY(width - 1, y)))
+        }
+    }
 
     protected fun setStartAndGoal() {
         val startXY = generateRandomXY()

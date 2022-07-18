@@ -1,4 +1,6 @@
 interface Cells {
+    val width: Int
+    val height: Int
     val start: Cell.Start?
     val goal: Cell.Goal?
     val procedure: List<Cell>

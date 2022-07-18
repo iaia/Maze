@@ -4,10 +4,7 @@ import Cell
 import Direction
 import XY
 
-class DiggingGenerator(
-    width: Int,
-    height: Int,
-) : BaseGenerator(width, height) {
+class DiggingGenerator : BaseGenerator() {
 
     private val directions = arrayOf(
         Direction.ABOVE,

@@ -4,10 +4,7 @@ import Cell
 import Direction
 import XY
 
-class WallExtendGenerator(
-    width: Int,
-    height: Int,
-) : BaseGenerator(width, height) {
+class WallExtendGenerator : BaseGenerator() {
     private val selectedXY: MutableList<XY> = mutableListOf()
 
     private val extendDirection: Array<Direction> =
