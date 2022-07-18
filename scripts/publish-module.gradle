@@ -35,7 +35,7 @@ afterEvaluate {
         }
 
         publications {
-            maven(MavenPublication) {
+            mavenJava(MavenPublication) {
                 groupId = PUBLISH_GROUP_ID
                 artifactId = PUBLISH_ARTIFACT_ID
                 version = PUBLISH_VERSION
@@ -44,7 +44,7 @@ afterEvaluate {
 
                 pom {
                     name = PUBLISH_ARTIFACT_ID
-                    description = "MAZE"
+                    description = "maze generator/resolver"
                     url = "https://github.com/iaia/Maze"
                     licenses {
                         license {
@@ -61,7 +61,7 @@ afterEvaluate {
                         }
                     }
                     scm {
-                        connection = "scm:git:git://github.com/iaia/Maze.git"
+                        connection = "scm:git:github.com/iaia/Maze.git"
                         developerConnection = "scm:git:ssh://github.com/iaia/Maze.git"
                         url = "https://github.com/iaia/Maze"
                     }
