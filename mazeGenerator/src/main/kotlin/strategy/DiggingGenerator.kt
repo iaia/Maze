@@ -16,7 +16,6 @@ class DiggingGenerator : BaseGenerator() {
     private val branches: MutableMap<XY, Array<Direction>> = mutableMapOf()
 
     override fun buildMap() {
-        setStartAndGoal()
         fillMap()
         cells.add(Cell.Floor(XY(1, 1)))
         branches[XY(1, 1)] = emptyArray()

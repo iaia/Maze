@@ -13,7 +13,6 @@ class WallExtendGenerator : BaseGenerator() {
     private val building: MutableList<XY> = mutableListOf()
 
     override fun buildMap() {
-        setStartAndGoal()
         fillMap()
         selectPositions()
 

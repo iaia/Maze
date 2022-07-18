@@ -30,13 +30,18 @@ abstract class BaseGenerator : Generator {
         (height - 1 downTo 1).forEach { y ->
             cells.add(Cell.Wall(XY(0, y)))
         }
+
+        setStartAndGoal()
     }
 
-    protected fun setStartAndGoal() {
-        val startXY = generateRandomXY()
-        val goalXY = generateRandomXY(startXY)
+    private fun setStartAndGoal() {
+        val startXY = XY(1, 1)
         cells.add(Cell.Start(startXY))
-        cells.add(Cell.Goal(goalXY))
+        if (width == 5 && height == 5) {
+            cells.add(Cell.Goal(XY(1, 3)))
+        } else {
+            cells.add(Cell.Goal(generateRandomXY(startXY)))
+        }
     }
 
     private fun generateRandomXY(except: XY? = null): XY {

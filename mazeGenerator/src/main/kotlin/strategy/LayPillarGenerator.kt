@@ -9,7 +9,6 @@ class LayPillarGenerator : BaseGenerator() {
     private val layDirectionsForFirst = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW, Direction.ABOVE)
 
     override fun buildMap() {
-        setStartAndGoal()
         buildPillar()
         layPillar()
     }

@@ -6,9 +6,9 @@ import XY
 class SampleGenerator : BaseGenerator() {
     /**
      * xxxxx
-     * x   x
+     * xs  x
      * xxx x
-     * x   x
+     * xg  x
      * xxxxx
      */
 
@@ -21,8 +21,5 @@ class SampleGenerator : BaseGenerator() {
         cells.add(Cell.Floor(XY(3, 2)))
         cells.add(Cell.Floor(XY(2, 3)))
         cells.add(Cell.Floor(XY(3, 3)))
-
-        cells.add(Cell.Start(XY(1, 1)))
-        cells.add(Cell.Goal(XY(1, 3)))
     }
 }
