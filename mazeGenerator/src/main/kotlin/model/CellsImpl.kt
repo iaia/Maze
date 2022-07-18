@@ -16,6 +16,7 @@ class CellsImpl(
         private set
     override var goal: Cell.Goal? = null
         private set
+    override val procedure: MutableList<Cell> = mutableListOf()
 
     init {
         // 外壁を作る
@@ -47,6 +48,7 @@ class CellsImpl(
             else -> Unit
         }
         cells[cell.xy.y][cell.xy.x] = cell
+        procedure.add(cell)
     }
 
     override fun here(x: Int, y: Int): Cell? =
@@ -78,6 +80,12 @@ class CellsImpl(
                 )
             }
             println()
+        }
+    }
+
+    override fun outputProcedure() {
+        procedure.forEach {
+            println(it.toString())
         }
     }
 }

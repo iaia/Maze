@@ -21,5 +21,6 @@ internal class MazeImpl(
 
     override fun output() {
         cells.output()
+        cells.outputProcedure()
     }
 }
