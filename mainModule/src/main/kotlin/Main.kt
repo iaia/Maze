@@ -4,8 +4,8 @@ import strategy.DiggingGenerator
 fun main() {
     // TODO: width/height はランダムな奇数にする
     val maze = MazeImpl.generate(
-        width = 5,
-        height = 5,
+        width = 7,
+        height = 7,
         generator = DiggingGenerator(),
         sequentialOutput = true,
     )

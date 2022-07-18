@@ -40,13 +40,13 @@ abstract class BaseGenerator : Generator {
         if (width == 5 && height == 5) {
             cells.add(Cell.Goal(XY(1, 3)))
         } else {
-            cells.add(Cell.Goal(generateRandomXY(startXY)))
+            cells.add(Cell.Goal(generateRandomGoalXY(startXY)))
         }
     }
 
-    private fun generateRandomXY(except: XY? = null): XY {
-        val x = Random.nextInt(1, width - 1)
-        val y = Random.nextInt(1, height - 1)
+    private fun generateRandomGoalXY(except: XY? = null): XY {
+        val x = Random.nextInt(3, width - 1)
+        val y = Random.nextInt(3, height - 1)
         return if (x == except?.x && y == except.y) {
             XY(
                 if (x % 2 == 0) {
