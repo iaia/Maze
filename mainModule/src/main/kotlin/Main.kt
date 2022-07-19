@@ -20,7 +20,7 @@ fun main() {
     // val resolver = SampleResolver()
     // val resolver = RightHandResolver()
     //val resolver = TremorResolver()
-    //val player = Player(maze, resolver)
+    //val player = dev.iaiabot.maze.mazeresolver.Player(maze, resolver)
     //player.start()
 
     //println("result: ${player.isGoal()}")

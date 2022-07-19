@@ -1,9 +1,9 @@
-package strategy
+package dev.iaiabot.maze.mazeresolver.strategy
 
-import Player
-import Resolver
 import dev.iaiabot.maze.entity.Cell
 import dev.iaiabot.maze.entity.Direction
+import dev.iaiabot.maze.mazeresolver.Player
+import dev.iaiabot.maze.mazeresolver.Resolver
 
 // 右手法
 class RightHandResolver : Resolver {

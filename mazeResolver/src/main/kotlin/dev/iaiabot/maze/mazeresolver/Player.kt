@@ -1,3 +1,5 @@
+package dev.iaiabot.maze.mazeresolver
+
 import dev.iaiabot.maze.entity.Cell
 import dev.iaiabot.maze.entity.Direction
 import dev.iaiabot.maze.entity.Maze
