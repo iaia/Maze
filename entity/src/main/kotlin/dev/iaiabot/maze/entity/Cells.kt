@@ -1,3 +1,5 @@
+package dev.iaiabot.maze.entity
+
 interface Cells {
     val width: Int
     val height: Int

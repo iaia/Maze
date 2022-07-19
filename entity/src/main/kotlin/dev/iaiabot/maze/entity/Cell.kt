@@ -1,3 +1,5 @@
+package dev.iaiabot.maze.entity
+
 sealed class Cell {
     abstract val xy: XY
     val x: Int

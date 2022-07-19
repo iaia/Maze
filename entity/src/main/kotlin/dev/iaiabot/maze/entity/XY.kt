@@ -1,3 +1,5 @@
+package dev.iaiabot.maze.entity
+
 class XY(private val xy: Pair<Int, Int>) {
     constructor(x: Int, y: Int) : this(
         xy = Pair(x, y)

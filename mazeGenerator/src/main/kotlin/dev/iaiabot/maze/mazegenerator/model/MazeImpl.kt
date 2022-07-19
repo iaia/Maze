@@ -1,10 +1,10 @@
-package model
+package dev.iaiabot.maze.mazegenerator.model
 
-import Cell
-import Generator
-import Maze
-import XY
-import decorator.Decorator
+import dev.iaiabot.maze.entity.Cell
+import dev.iaiabot.maze.entity.Maze
+import dev.iaiabot.maze.entity.XY
+import dev.iaiabot.maze.mazegenerator.Generator
+import dev.iaiabot.maze.mazegenerator.decorator.Decorator
 
 class MazeImpl private constructor(
     width: Int,

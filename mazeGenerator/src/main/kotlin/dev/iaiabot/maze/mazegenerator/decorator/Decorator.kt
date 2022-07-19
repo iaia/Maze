@@ -1,6 +1,6 @@
-package decorator
+package dev.iaiabot.maze.mazegenerator.decorator
 
-import Cell
+import dev.iaiabot.maze.entity.Cell
 
 interface Decorator {
     fun sequentialOutput(cell: Cell)

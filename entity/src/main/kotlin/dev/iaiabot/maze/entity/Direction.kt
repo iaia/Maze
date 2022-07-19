@@ -1,3 +1,5 @@
+package dev.iaiabot.maze.entity
+
 enum class Direction(
     private val x: Int,
     private val y: Int

@@ -1,3 +1,8 @@
+import dev.iaiabot.maze.entity.Cell
+import dev.iaiabot.maze.entity.Direction
+import dev.iaiabot.maze.entity.Maze
+import dev.iaiabot.maze.entity.XY
+
 class Player(
     private val maze: Maze,
     private val resolver: Resolver,

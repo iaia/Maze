@@ -1,6 +1,6 @@
-import decorator.StandardOutputDecorator
-import model.MazeImpl
-import strategy.DiggingGenerator
+import dev.iaiabot.maze.mazegenerator.decorator.StandardOutputDecorator
+import dev.iaiabot.maze.mazegenerator.model.MazeImpl
+import dev.iaiabot.maze.mazegenerator.strategy.DiggingGenerator
 
 fun main() {
     // TODO: width/height はランダムな奇数にする

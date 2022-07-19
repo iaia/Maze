@@ -1,8 +1,8 @@
-package strategy
+package dev.iaiabot.maze.mazegenerator.strategy
 
-import Cell
-import Direction
-import XY
+import dev.iaiabot.maze.entity.Cell
+import dev.iaiabot.maze.entity.Direction
+import dev.iaiabot.maze.entity.XY
 
 class LayPillarGenerator : BaseGenerator() {
     private val layDirections = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW)

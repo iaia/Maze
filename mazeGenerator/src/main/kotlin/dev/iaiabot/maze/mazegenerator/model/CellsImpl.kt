@@ -1,9 +1,9 @@
-package model
+package dev.iaiabot.maze.mazegenerator.model
 
-import Cell
-import Cells
-import XY
-import decorator.Decorator
+import dev.iaiabot.maze.entity.Cell
+import dev.iaiabot.maze.entity.Cells
+import dev.iaiabot.maze.entity.XY
+import dev.iaiabot.maze.mazegenerator.decorator.Decorator
 
 class CellsImpl(
     override val width: Int,

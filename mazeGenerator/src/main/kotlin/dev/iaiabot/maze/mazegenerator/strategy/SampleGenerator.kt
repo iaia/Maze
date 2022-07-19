@@ -1,7 +1,7 @@
-package strategy
+package dev.iaiabot.maze.mazegenerator.strategy
 
-import Cell
-import XY
+import dev.iaiabot.maze.entity.Cell
+import dev.iaiabot.maze.entity.XY
 
 class SampleGenerator : BaseGenerator() {
     /**

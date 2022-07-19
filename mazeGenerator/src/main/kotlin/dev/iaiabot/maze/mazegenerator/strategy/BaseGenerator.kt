@@ -1,9 +1,9 @@
-package strategy
+package dev.iaiabot.maze.mazegenerator.strategy
 
-import Cell
-import Cells
-import Generator
-import XY
+import dev.iaiabot.maze.entity.Cell
+import dev.iaiabot.maze.entity.Cells
+import dev.iaiabot.maze.entity.XY
+import dev.iaiabot.maze.mazegenerator.Generator
 import kotlin.random.Random
 
 abstract class BaseGenerator : Generator {

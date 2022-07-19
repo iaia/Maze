@@ -1,3 +1,5 @@
+package dev.iaiabot.maze.entity
+
 interface Maze {
     val start: Cell
 

@@ -1,6 +1,6 @@
-package decorator
+package dev.iaiabot.maze.mazegenerator.decorator
 
-import Cell
+import dev.iaiabot.maze.entity.Cell
 
 class StandardOutputDecorator(
     private val sequentialOutput: Boolean,

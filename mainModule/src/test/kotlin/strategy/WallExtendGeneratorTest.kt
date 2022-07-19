@@ -1,6 +1,7 @@
 package strategy
 
-import Generator
+import dev.iaiabot.maze.mazegenerator.Generator
+import dev.iaiabot.maze.mazegenerator.strategy.WallExtendGenerator
 
 internal class WallExtendGeneratorTest : DescribeSpec({
     describe("5x5") {
