@@ -5,5 +5,8 @@ enum class Status {
     SETUP,
     FINISH_SETUP,
     BUILDING,
-    FINISHED,
+    FINISH_BUILD,
+    START_RESOLVE,
+    RESOLVING,
+    FINISH_RESOLVE,
 }

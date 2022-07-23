@@ -34,7 +34,7 @@ sealed class Cell {
     }
 
     override fun toString(): String {
-        return "x=${xy.x}, y=${xy.y}"
+        return "[x=${xy.x}, y=${xy.y}], step=${stepped}"
     }
 
     fun step() {

@@ -22,7 +22,7 @@ class Maze(
     fun buildMap() {
         decorator.onChangeStatus(Status.BUILDING)
         generator.buildMap()
-        decorator.onChangeStatus(Status.FINISHED)
+        decorator.onChangeStatus(Status.FINISH_BUILD)
     }
 
     fun here(xy: XY): Cell? {
