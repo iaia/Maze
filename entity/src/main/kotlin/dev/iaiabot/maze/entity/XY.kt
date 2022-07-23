@@ -1,9 +1,6 @@
 package dev.iaiabot.maze.entity
 
 class XY(private val xy: Pair<Int, Int>) {
-    companion object {
-        fun convert(x: Int, y: Int) = XY(x, y)
-    }
 
     constructor(x: Int, y: Int) : this(
         xy = Pair(x, y)

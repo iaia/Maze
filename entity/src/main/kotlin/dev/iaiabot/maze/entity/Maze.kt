@@ -11,7 +11,7 @@ class Maze(
 
     val start: Cell
         get() = cells.start!!
-    private val cells = CellsImpl(width, height, decorator)
+    private val cells = Cells(width, height, decorator)
 
     fun setup() {
         decorator.onChangeStatus(Status.SETUP)
