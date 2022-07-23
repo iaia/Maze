@@ -1,9 +1,10 @@
 plugins {
     id "org.jetbrains.kotlin.jvm" version "$kotlin_version"
 }
+apply from: "${rootProject.projectDir}/scripts/versions.gradle"
 
-group = "dev.iaiabot.maze"
-version = "3.0"
+group = maze_group
+version = maze_version
 
 ext {
     PUBLISH_GROUP_ID = group
