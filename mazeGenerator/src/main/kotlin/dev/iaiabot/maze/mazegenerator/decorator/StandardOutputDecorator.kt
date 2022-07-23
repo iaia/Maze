@@ -1,10 +1,15 @@
 package dev.iaiabot.maze.mazegenerator.decorator
 
 import dev.iaiabot.maze.entity.Cell
+import dev.iaiabot.maze.entity.Status
 
 class StandardOutputDecorator(
     private val sequentialOutput: Boolean,
 ) : Decorator {
+    override fun onChangeStatus(status: Status) {
+        println("$status--------------------------------")
+    }
+
     override fun sequentialOutput(cell: Cell) {
         if (sequentialOutput) {
             println(cell.toString())

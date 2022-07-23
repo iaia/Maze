@@ -4,10 +4,12 @@ import dev.iaiabot.maze.entity.Cell
 import dev.iaiabot.maze.entity.Direction
 import dev.iaiabot.maze.entity.Maze
 import dev.iaiabot.maze.entity.XY
+import dev.iaiabot.maze.mazegenerator.decorator.Decorator
 
 class Player(
     private val maze: Maze,
     private val resolver: Resolver,
+    private val decorator: Decorator,
 ) {
     lateinit var currentCell: Cell
     private var moveCounter: Int = 0
@@ -25,6 +27,7 @@ class Player(
             is Cell.Start, is Cell.Goal, is Cell.Floor -> {
                 currentCell = cell
                 moveCounter += 1
+                decorator.sequentialOutput(currentCell)
             }
             is Cell.Wall -> return
             else -> {}

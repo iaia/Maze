@@ -2,6 +2,7 @@ package dev.iaiabot.maze.mazegenerator.model
 
 import dev.iaiabot.maze.entity.Cell
 import dev.iaiabot.maze.entity.Cells
+import dev.iaiabot.maze.entity.Status
 import dev.iaiabot.maze.entity.XY
 import dev.iaiabot.maze.mazegenerator.decorator.Decorator
 
@@ -14,6 +15,8 @@ class CellsImpl(
         Array(width) { null }
     }
     private var wallCount: Int = 0
+    private var status: Status = Status.INIT
+
     override var start: Cell.Start? = null
         private set
     override var goal: Cell.Goal? = null
