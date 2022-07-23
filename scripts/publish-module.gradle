@@ -35,7 +35,7 @@ afterEvaluate {
         }
 
         publications {
-            mavenJava(MavenPublication) {
+            release(MavenPublication) {
                 groupId = PUBLISH_GROUP_ID
                 artifactId = PUBLISH_ARTIFACT_ID
                 version = PUBLISH_VERSION
