@@ -4,7 +4,7 @@ import dev.iaiabot.maze.mazegenerator.strategy.DiggingGenerator
 
 fun main() {
     // TODO: width/height はランダムな奇数にする
-    val maze = MazeImpl.generate(
+    val maze = MazeImpl(
         width = 7,
         height = 7,
         generator = DiggingGenerator(),

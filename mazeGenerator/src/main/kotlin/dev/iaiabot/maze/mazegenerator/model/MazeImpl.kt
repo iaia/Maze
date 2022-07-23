@@ -6,23 +6,12 @@ import dev.iaiabot.maze.entity.XY
 import dev.iaiabot.maze.mazegenerator.Generator
 import dev.iaiabot.maze.mazegenerator.decorator.Decorator
 
-class MazeImpl private constructor(
+class MazeImpl(
     width: Int,
     height: Int,
     private val generator: Generator,
     decorator: Decorator,
 ) : Maze {
-
-    companion object {
-        fun generate(
-            width: Int,
-            height: Int,
-            generator: Generator,
-            decorator: Decorator,
-        ): Maze {
-            return MazeImpl(width, height, generator, decorator)
-        }
-    }
 
     private val cells = CellsImpl(width, height, decorator)
     override val start: Cell
