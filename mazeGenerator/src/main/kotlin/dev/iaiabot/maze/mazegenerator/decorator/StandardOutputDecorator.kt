@@ -1,7 +1,6 @@
 package dev.iaiabot.maze.mazegenerator.decorator
 
 import dev.iaiabot.maze.entity.Cell
-import dev.iaiabot.maze.entity.XY
 
 class StandardOutputDecorator(
     private val sequentialOutput: Boolean,
@@ -12,17 +11,8 @@ class StandardOutputDecorator(
         }
     }
 
-    override fun fullOutput(cells: Map<XY, Cell?>) {
-        val width = cells.keys.maxOf { it.x } + 1
-        val height = cells.keys.maxOf { it.y } + 1
-        val displayCells: Array<Array<Cell?>> = Array(height) {
-            Array(width) { null }
-        }
-        cells.keys.forEach {
-            displayCells[it.y][it.x] = cells[it]
-        }
-
-        displayCells.forEach { column ->
+    override fun fullOutput(cells: Array<Array<Cell?>>) {
+        cells.forEach { column ->
             column.forEach { cell ->
                 print(
                     when (cell) {

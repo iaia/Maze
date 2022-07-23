@@ -10,7 +10,9 @@ class CellsImpl(
     override val height: Int,
     private val decorator: Decorator,
 ) : Cells {
-    private val cells: MutableMap<XY, Cell?> = mutableMapOf()
+    private val cells: Array<Array<Cell?>> = Array(height) {
+        Array(width) { null }
+    }
     private var wallCount: Int = 0
     override var start: Cell.Start? = null
         private set
@@ -18,7 +20,7 @@ class CellsImpl(
         private set
 
     override fun add(cell: Cell) {
-        when (cells[cell.xy]) {
+        when (cells[cell.y][cell.x]) {
             is Cell.Start, is Cell.Goal -> return
             else -> Unit
         }
@@ -34,20 +36,20 @@ class CellsImpl(
             }
             else -> Unit
         }
-        cells[cell.xy] = cell
+        cells[cell.y][cell.x] = cell
         decorator.sequentialOutput(cell)
     }
 
     override fun here(x: Int, y: Int): Cell? =
         try {
-            cells[XY.convert(x, y)]
+            cells[y][x]
         } catch (e: ArrayIndexOutOfBoundsException) {
             null
         }
 
     override fun here(xy: XY): Cell? =
         try {
-            cells[xy]
+            cells[xy.y][xy.x]
         } catch (e: ArrayIndexOutOfBoundsException) {
             null
         }
