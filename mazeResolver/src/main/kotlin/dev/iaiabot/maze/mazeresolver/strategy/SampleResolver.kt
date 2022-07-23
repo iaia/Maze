@@ -1,10 +1,6 @@
 package dev.iaiabot.maze.mazeresolver.strategy
 
-import dev.iaiabot.maze.entity.Cell
-import dev.iaiabot.maze.entity.Direction
-import dev.iaiabot.maze.entity.XY
-import dev.iaiabot.maze.mazeresolver.Player
-import dev.iaiabot.maze.mazeresolver.Resolver
+import dev.iaiabot.maze.entity.*
 
 // sample generator のみ解決出来るresolver
 // それ以外は6手以上かかる場合に失敗する

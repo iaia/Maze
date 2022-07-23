@@ -1,10 +1,6 @@
-package dev.iaiabot.maze.mazeresolver
+package dev.iaiabot.maze.entity
 
-import dev.iaiabot.maze.entity.Cell
-import dev.iaiabot.maze.entity.Direction
-import dev.iaiabot.maze.entity.Maze
-import dev.iaiabot.maze.entity.XY
-import dev.iaiabot.maze.mazegenerator.decorator.Decorator
+import dev.iaiabot.maze.entity.decorator.Decorator
 
 class Player(
     private val maze: Maze,

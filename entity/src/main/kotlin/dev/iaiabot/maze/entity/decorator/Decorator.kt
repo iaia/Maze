@@ -1,4 +1,4 @@
-package dev.iaiabot.maze.mazegenerator.decorator
+package dev.iaiabot.maze.entity.decorator
 
 import dev.iaiabot.maze.entity.Cell
 import dev.iaiabot.maze.entity.Status
