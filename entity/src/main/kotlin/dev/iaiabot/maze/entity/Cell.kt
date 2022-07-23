@@ -6,6 +6,8 @@ sealed class Cell {
         get() = xy.x
     val y: Int
         get() = xy.y
+    var stepped: Int = 0
+        private set
 
     class Floor(override val xy: XY) : Cell() {
         override fun toString(): String {
@@ -33,5 +35,9 @@ sealed class Cell {
 
     override fun toString(): String {
         return "x=${xy.x}, y=${xy.y}"
+    }
+
+    fun step() {
+        stepped += 1
     }
 }

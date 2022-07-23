@@ -21,6 +21,7 @@ class Player(
         println("move to $direction ($xy)")
         when (val cell = maze.here(xy)) {
             is Cell.Start, is Cell.Goal, is Cell.Floor -> {
+                cell.step()
                 currentCell = cell
                 moveCounter += 1
                 decorator.sequentialOutput(currentCell)
