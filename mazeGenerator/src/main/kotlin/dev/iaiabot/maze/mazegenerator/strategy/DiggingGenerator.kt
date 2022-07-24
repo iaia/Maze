@@ -6,7 +6,7 @@ import dev.iaiabot.maze.entity.XY
 
 class DiggingGenerator : BaseGenerator() {
 
-    private val directions = arrayOf(
+    private val directions = listOf(
         Direction.ABOVE,
         Direction.LEFT,
         Direction.RIGHT,
@@ -21,7 +21,7 @@ class DiggingGenerator : BaseGenerator() {
         fillMap()
         branches[XY(1, 1)] = mutableListOf(Direction.LEFT, Direction.ABOVE)
         while (branches.isNotEmpty()) {
-            val xy = branches.entries.last()
+            val xy = branches.entries.random()
             dig(xy.key, xy.value)
         }
     }
@@ -79,8 +79,6 @@ class DiggingGenerator : BaseGenerator() {
     }
 
     private fun randomDirection(except: List<Direction> = emptyList()): Direction? {
-        return directions.filterNot {
-            except.contains(it)
-        }.randomOrNull()
+        return (directions - except.toSet()).randomOrNull()
     }
 }

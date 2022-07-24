@@ -37,6 +37,14 @@ sealed class Cell {
         return "[x=${xy.x}, y=${xy.y}], step=${stepped}"
     }
 
+    override fun equals(other: Any?): Boolean {
+        return if (other is Cell) {
+            other.x == x && other.y == y && other.stepped == stepped && other.javaClass == this.javaClass
+        } else {
+            false
+        }
+    }
+
     fun step() {
         stepped += 1
     }

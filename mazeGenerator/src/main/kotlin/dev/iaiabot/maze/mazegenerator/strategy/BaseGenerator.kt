@@ -4,7 +4,6 @@ import dev.iaiabot.maze.entity.Cell
 import dev.iaiabot.maze.entity.Cells
 import dev.iaiabot.maze.entity.Generator
 import dev.iaiabot.maze.entity.XY
-import kotlin.random.Random
 
 abstract class BaseGenerator : Generator {
     protected lateinit var cells: Cells
@@ -39,26 +38,7 @@ abstract class BaseGenerator : Generator {
         if (width == 5 && height == 5) {
             cells.add(Cell.Goal(XY(1, 3)))
         } else {
-            cells.add(Cell.Goal(generateRandomGoalXY()))
-        }
-    }
-
-    private fun generateRandomGoalXY(): XY {
-        val x = Random(System.currentTimeMillis()).nextInt(3, width - 2)
-        val y = Random(System.currentTimeMillis()).nextInt(3, height - 2)
-        return when {
-            x % 2 == 0 && y % 2 == 0 -> {
-                XY(x + 1, y + 1)
-            }
-            x % 2 == 0 -> {
-                XY(x + 1, y)
-            }
-            y % 2 == 0 -> {
-                XY(x, y + 1)
-            }
-            else -> {
-                XY(x, y)
-            }
+            cells.add(Cell.Goal(XY(width - 2, height - 2)))
         }
     }
 }
