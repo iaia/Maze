@@ -9,10 +9,9 @@ fun main() {
     val maze = Maze(
         width = 33,
         height = 11,
-        generator = DiggingGenerator(),
         decorator = StandardOutputDecorator(sequentialOutput = true),
     )
-    maze.setup()
+    maze.setup(generator = DiggingGenerator())
     maze.buildMap()
     maze.output()
 

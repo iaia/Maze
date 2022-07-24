@@ -3,18 +3,22 @@ package dev.iaiabot.maze.entity
 import dev.iaiabot.maze.entity.decorator.Decorator
 
 class Maze(
-    width: Int,
-    height: Int,
-    private val generator: Generator,
+    private val width: Int,
+    private val height: Int,
     private val decorator: Decorator,
 ) {
 
     val start: Cell
         get() = cells.start!!
-    private val cells = Cells(width, height, decorator)
+    private lateinit var cells: Cells
+    private lateinit var generator: Generator
 
-    fun setup() {
+    fun setup(generator: Generator) {
         decorator.onChangeStatus(Status.SETUP)
+
+        cells = Cells(width, height, decorator)
+        this.generator = generator
+
         generator.setup(cells)
         decorator.onChangeStatus(Status.FINISH_SETUP)
     }
