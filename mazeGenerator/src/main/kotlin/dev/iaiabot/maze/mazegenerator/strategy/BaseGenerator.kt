@@ -44,8 +44,8 @@ abstract class BaseGenerator : Generator {
     }
 
     private fun generateRandomGoalXY(): XY {
-        val x = Random.nextInt(3, width - 1)
-        val y = Random.nextInt(3, height - 1)
+        val x = Random(System.currentTimeMillis()).nextInt(3, width - 1)
+        val y = Random(System.currentTimeMillis()).nextInt(3, height - 1)
         return when {
             x % 2 == 0 && y % 2 == 0 -> {
                 XY(x + 1, y + 1)
