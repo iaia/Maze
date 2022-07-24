@@ -10,9 +10,9 @@ class StandardOutputDecorator(
         println("$status--------------------------------")
     }
 
-    override fun sequentialOutput(cell: Cell, status: Status) {
+    override fun sequentialOutput(cell: Cell) {
         if (sequentialOutput) {
-            println("${cell}, $status")
+            println("$cell")
         }
     }
 
