@@ -12,11 +12,8 @@ fun main() {
         generator = DiggingGenerator(),
         decorator = StandardOutputDecorator(sequentialOutput = true),
     )
-    println("------------------ setup")
     maze.setup()
-    println("------------------ generate")
     maze.buildMap()
-    println("------------------ output")
     maze.output()
 
     // val resolver = SampleResolver()

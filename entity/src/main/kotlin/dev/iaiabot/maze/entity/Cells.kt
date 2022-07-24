@@ -12,7 +12,6 @@ class Cells(
         Array(width) { null }
     }
     private var wallCount: Int = 0
-    private var status: Status = Status.INIT
 
     var start: Cell.Start? = null
         private set
