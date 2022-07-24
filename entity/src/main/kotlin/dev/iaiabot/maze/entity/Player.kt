@@ -9,14 +9,13 @@ class Player(
 ) {
     lateinit var currentCell: Cell
     private var moveCounter: Int = 0
-    private var status: Status = Status.INIT
 
     fun start() {
-        status = Status.START_RESOLVE
+        decorator.onChangeStatus(Status.START_RESOLVE)
         moveToStartPosition()
-        status = Status.RESOLVING
+        decorator.onChangeStatus(status = Status.RESOLVING)
         resolver.resolve(this)
-        status = Status.FINISH_RESOLVE
+        decorator.onChangeStatus(Status.FINISH_RESOLVE)
     }
 
     fun move(direction: Direction) {
@@ -26,7 +25,7 @@ class Player(
                 cell.step()
                 currentCell = cell
                 moveCounter += 1
-                decorator.sequentialOutput(currentCell, status)
+                decorator.sequentialOutput(currentCell)
             }
             is Cell.Wall -> return
             else -> {}
