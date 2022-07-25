@@ -4,6 +4,9 @@ import dev.iaiabot.maze.entity.Cell
 import dev.iaiabot.maze.entity.XY
 
 class SampleGenerator : BaseGenerator() {
+
+    override val name: String = "Sample"
+
     /**
      * xxxxx
      * xs  x

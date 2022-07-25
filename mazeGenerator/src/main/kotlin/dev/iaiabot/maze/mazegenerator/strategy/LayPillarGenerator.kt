@@ -5,6 +5,9 @@ import dev.iaiabot.maze.entity.Direction
 import dev.iaiabot.maze.entity.XY
 
 class LayPillarGenerator : BaseGenerator() {
+
+    override val name: String = "LayPillar"
+
     private val layDirections = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW)
     private val layDirectionsForFirst = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW, Direction.ABOVE)
 

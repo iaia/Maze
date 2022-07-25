@@ -9,6 +9,8 @@ class DiggingGenerator(
     private val priority: Priority,
 ) : BaseGenerator() {
 
+    override val name: String = "Digging (${priority.name})"
+
     private val branches = mutableListOf<Branch>()
     private var alreadyDugToGoal: Boolean = false
 

@@ -6,6 +6,9 @@ import dev.iaiabot.maze.entity.Direction
 import dev.iaiabot.maze.entity.XY
 
 class WallExtendGenerator : BaseGenerator() {
+
+    override val name: String = "WallExtend"
+
     private val selectedXY: MutableList<XY> = mutableListOf()
 
     private val extendDirection: Array<Direction> =
