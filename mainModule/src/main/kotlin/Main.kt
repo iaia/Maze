@@ -11,8 +11,22 @@ fun main() {
     )
     maze.setup(
         width = 33,
-        height = 11,
-        generator = DiggingGenerator()
+        height = 9,
+        generator = DiggingGenerator(priority = DiggingGenerator.Priority.DEPTH_FIRST)
+    )
+    maze.buildMap()
+    maze.output()
+    maze.setup(
+        width = 33,
+        height = 9,
+        generator = DiggingGenerator(priority = DiggingGenerator.Priority.BREADTH_FIRST)
+    )
+    maze.buildMap()
+    maze.output()
+    maze.setup(
+        width = 33,
+        height = 9,
+        generator = DiggingGenerator(priority = DiggingGenerator.Priority.RANDOM)
     )
     maze.buildMap()
     maze.output()

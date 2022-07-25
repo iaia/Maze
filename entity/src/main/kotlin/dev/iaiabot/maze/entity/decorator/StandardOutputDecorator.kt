@@ -6,13 +6,19 @@ import dev.iaiabot.maze.entity.Status
 class StandardOutputDecorator(
     private val sequentialOutput: Boolean,
 ) : Decorator {
+
+    private var status: Status = Status.INIT
+
     override fun onChangeStatus(status: Status) {
+        this.status = status
         println("$status--------------------------------")
     }
 
     override fun sequentialOutput(cell: Cell) {
         if (sequentialOutput) {
-            println("$cell")
+            if (status != Status.SETUP) {
+                // println("$cell")
+            }
         }
     }
 
