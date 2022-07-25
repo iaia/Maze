@@ -28,6 +28,7 @@ class Maze(
     fun buildMap() {
         decorator.onChangeStatus(Status.BUILDING, cells.dump())
         generator.buildMap()
+        cells.checkGoalAround()
         decorator.onChangeStatus(Status.FINISH_BUILD, cells.dump())
     }
 

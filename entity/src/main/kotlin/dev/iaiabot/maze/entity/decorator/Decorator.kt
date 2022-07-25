@@ -8,8 +8,4 @@ interface Decorator {
 
     fun sequentialOutput(cell: Cell) {}
     fun fullOutput(cells: Array<Array<Cell?>>) {}
-    fun batchOutput(
-        cells: Array<Array<Cell?>>
-    ) {
-    }
 }

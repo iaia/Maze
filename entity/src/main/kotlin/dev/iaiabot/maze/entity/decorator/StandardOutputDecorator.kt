@@ -17,7 +17,7 @@ class StandardOutputDecorator(
     override fun sequentialOutput(cell: Cell) {
         if (sequentialOutput) {
             if (status != Status.SETUP) {
-                // println("$cell")
+                println("$cell")
             }
         }
     }

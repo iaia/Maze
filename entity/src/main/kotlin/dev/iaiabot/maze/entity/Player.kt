@@ -11,11 +11,11 @@ class Player(
     private var moveCounter: Int = 0
 
     fun start() {
-        decorator.onChangeStatus(Status.START_RESOLVE)
+        decorator.onChangeStatus(Status.START_RESOLVE, emptyArray())
         moveToStartPosition()
-        decorator.onChangeStatus(status = Status.RESOLVING)
+        decorator.onChangeStatus(status = Status.RESOLVING, emptyArray())
         resolver.resolve(this)
-        decorator.onChangeStatus(Status.FINISH_RESOLVE)
+        decorator.onChangeStatus(Status.FINISH_RESOLVE, emptyArray())
     }
 
     fun move(direction: Direction) {

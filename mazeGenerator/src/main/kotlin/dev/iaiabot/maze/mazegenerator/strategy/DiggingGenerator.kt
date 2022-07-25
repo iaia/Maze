@@ -14,6 +14,8 @@ class DiggingGenerator(
 
     override fun setup(cells: Cells) {
         super.setup(cells)
+        branches.clear()
+        alreadyDugToGoal = false
         fillMap()
     }
 

@@ -58,4 +58,15 @@ class Cells(
     }
 
     internal fun dump() = cells
+
+    internal fun checkGoalAround() {
+        if (
+            cells[height - 3][width - 2] is Cell.Wall
+            && cells[height - 2][width - 3] is Cell.Wall
+        ) {
+            throw CannotReachGoal()
+        }
+    }
 }
+
+class CannotReachGoal : Exception()

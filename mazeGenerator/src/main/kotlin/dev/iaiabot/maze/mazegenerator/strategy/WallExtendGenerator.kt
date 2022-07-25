@@ -1,6 +1,7 @@
 package dev.iaiabot.maze.mazegenerator.strategy
 
 import dev.iaiabot.maze.entity.Cell
+import dev.iaiabot.maze.entity.Cells
 import dev.iaiabot.maze.entity.Direction
 import dev.iaiabot.maze.entity.XY
 
@@ -11,6 +12,12 @@ class WallExtendGenerator : BaseGenerator() {
         arrayOf(Direction.LEFT, Direction.BELOW, Direction.ABOVE, Direction.RIGHT)
 
     private val building: MutableList<XY> = mutableListOf()
+
+    override fun setup(cells: Cells) {
+        super.setup(cells)
+        selectedXY.clear()
+        building.clear()
+    }
 
     override fun buildMap() {
         fillMap()

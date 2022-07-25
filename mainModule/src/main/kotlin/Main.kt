@@ -7,29 +7,24 @@ import dev.iaiabot.maze.mazeresolver.strategy.RightHandResolver
 fun main() {
     // TODO: width/height はランダムな奇数にする
     val maze = Maze(
-        decorator = StandardOutputDecorator(sequentialOutput = true),
+        decorator = StandardOutputDecorator(sequentialOutput = false),
     )
-    maze.setup(
-        width = 33,
-        height = 9,
-        generator = DiggingGenerator(priority = DiggingGenerator.Priority.DEPTH_FIRST)
-    )
-    maze.buildMap()
-    maze.output()
-    maze.setup(
-        width = 33,
-        height = 9,
-        generator = DiggingGenerator(priority = DiggingGenerator.Priority.BREADTH_FIRST)
-    )
-    maze.buildMap()
-    maze.output()
-    maze.setup(
-        width = 33,
-        height = 9,
-        generator = DiggingGenerator(priority = DiggingGenerator.Priority.RANDOM)
-    )
-    maze.buildMap()
-    maze.output()
+    var generator = DiggingGenerator(priority = DiggingGenerator.Priority.RANDOM)
+
+    repeat(3) {
+        maze.setup(
+            width = 33,
+            height = 9,
+            generator = generator
+        )
+        try {
+            maze.buildMap()
+        } catch (e: Exception) {
+            println(e)
+        } finally {
+            maze.output()
+        }
+    }
 
     // val resolver = SampleResolver()
     val resolver = RightHandResolver()
