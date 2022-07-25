@@ -56,4 +56,6 @@ class Cells(
     fun output() {
         decorator.fullOutput(cells)
     }
+
+    internal fun dump() = cells
 }

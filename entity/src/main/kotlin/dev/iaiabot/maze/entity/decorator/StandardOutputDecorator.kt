@@ -9,7 +9,7 @@ class StandardOutputDecorator(
 
     private var status: Status = Status.INIT
 
-    override fun onChangeStatus(status: Status) {
+    override fun onChangeStatus(status: Status, cells: Array<Array<Cell?>>) {
         this.status = status
         println("$status--------------------------------")
     }
