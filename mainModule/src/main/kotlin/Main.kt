@@ -30,7 +30,7 @@ fun main() {
     val resolver = RightHandResolver()
     //val resolver = TremorResolver()
     val player = Player(maze, resolver, decorator = StandardOutputDecorator(sequentialOutput = true))
-    // player.start()
+    player.start()
 
     //println("result: ${player.isGoal()}")
 }

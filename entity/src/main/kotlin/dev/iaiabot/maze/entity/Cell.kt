@@ -6,8 +6,6 @@ sealed class Cell {
         get() = xy.x
     val y: Int
         get() = xy.y
-    var stepped: Int = 0
-        private set
 
     class Floor(override val xy: XY) : Cell() {
         override fun toString(): String {
@@ -34,18 +32,14 @@ sealed class Cell {
     }
 
     override fun toString(): String {
-        return "[x=${xy.x}, y=${xy.y}], step=${stepped}"
+        return "[x=${xy.x}, y=${xy.y}]"
     }
 
     override fun equals(other: Any?): Boolean {
         return if (other is Cell) {
-            other.x == x && other.y == y && other.stepped == stepped && other.javaClass == this.javaClass
+            other.x == x && other.y == y && other.javaClass == this.javaClass
         } else {
             false
         }
-    }
-
-    fun step() {
-        stepped += 1
     }
 }

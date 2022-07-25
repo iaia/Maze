@@ -22,7 +22,6 @@ class Player(
         val xy = direction.calculate(currentCell.xy.x, currentCell.xy.y)
         when (val cell = maze.here(xy)) {
             is Cell.Start, is Cell.Goal, is Cell.Floor -> {
-                cell.step()
                 currentCell = cell
                 moveCounter += 1
                 decorator.sequentialOutput(currentCell)
