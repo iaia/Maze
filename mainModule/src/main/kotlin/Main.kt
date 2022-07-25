@@ -1,3 +1,4 @@
+import dev.iaiabot.maze.entity.Generator
 import dev.iaiabot.maze.entity.Maze
 import dev.iaiabot.maze.entity.Player
 import dev.iaiabot.maze.entity.decorator.StandardOutputDecorator
@@ -9,28 +10,29 @@ fun main() {
     val maze = Maze(
         decorator = StandardOutputDecorator(sequentialOutput = false),
     )
-    var generator = DiggingGenerator(priority = DiggingGenerator.Priority.RANDOM)
+    val diggingGenerator = DiggingGenerator(priority = DiggingGenerator.Priority.RANDOM)
 
-    repeat(3) {
+    fun start(generator: Generator) {
         maze.setup(
             width = 33,
             height = 9,
             generator = generator
         )
-        try {
-            maze.buildMap()
-        } catch (e: Exception) {
-            println(e)
-        } finally {
-            maze.output()
-        }
+        maze.buildMap()
+        maze.output()
     }
+
+    repeat(3) {
+        start(diggingGenerator)
+    }
+    start(DiggingGenerator(priority = DiggingGenerator.Priority.DEPTH_FIRST))
+    start(DiggingGenerator(priority = DiggingGenerator.Priority.BREADTH_FIRST))
 
     // val resolver = SampleResolver()
     val resolver = RightHandResolver()
     //val resolver = TremorResolver()
     val player = Player(maze, resolver, decorator = StandardOutputDecorator(sequentialOutput = true))
-    player.start()
+    // player.start()
 
     //println("result: ${player.isGoal()}")
 }

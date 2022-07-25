@@ -20,10 +20,10 @@ class WallExtendGenerator : BaseGenerator() {
         super.setup(cells)
         selectedXY.clear()
         building.clear()
+        fillMap()
     }
 
     override fun buildMap() {
-        fillMap()
         selectPositions()
 
         while (selectedXY.isNotEmpty()) {

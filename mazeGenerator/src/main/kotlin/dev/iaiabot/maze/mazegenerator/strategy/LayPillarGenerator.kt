@@ -1,6 +1,7 @@
 package dev.iaiabot.maze.mazegenerator.strategy
 
 import dev.iaiabot.maze.entity.Cell
+import dev.iaiabot.maze.entity.Cells
 import dev.iaiabot.maze.entity.Direction
 import dev.iaiabot.maze.entity.XY
 
@@ -11,8 +12,12 @@ class LayPillarGenerator : BaseGenerator() {
     private val layDirections = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW)
     private val layDirectionsForFirst = arrayOf(Direction.LEFT, Direction.RIGHT, Direction.BELOW, Direction.ABOVE)
 
-    override fun buildMap() {
+    override fun setup(cells: Cells) {
+        super.setup(cells)
         buildPillar()
+    }
+
+    override fun buildMap() {
         layPillar()
     }
 

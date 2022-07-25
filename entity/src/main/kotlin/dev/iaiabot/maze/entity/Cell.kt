@@ -34,12 +34,4 @@ sealed class Cell {
     override fun toString(): String {
         return "[x=${xy.x}, y=${xy.y}]"
     }
-
-    override fun equals(other: Any?): Boolean {
-        return if (other is Cell) {
-            other.x == x && other.y == y && other.javaClass == this.javaClass
-        } else {
-            false
-        }
-    }
 }
