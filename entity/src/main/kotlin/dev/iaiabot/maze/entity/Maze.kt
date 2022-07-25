@@ -3,8 +3,6 @@ package dev.iaiabot.maze.entity
 import dev.iaiabot.maze.entity.decorator.Decorator
 
 class Maze(
-    private val width: Int,
-    private val height: Int,
     private val decorator: Decorator,
 ) {
 
@@ -13,7 +11,11 @@ class Maze(
     private lateinit var cells: Cells
     private lateinit var generator: Generator
 
-    fun setup(generator: Generator) {
+    fun setup(
+        width: Int,
+        height: Int,
+        generator: Generator
+    ) {
         decorator.onChangeStatus(Status.SETUP)
 
         cells = Cells(width, height, decorator)

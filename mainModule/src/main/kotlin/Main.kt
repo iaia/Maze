@@ -7,11 +7,13 @@ import dev.iaiabot.maze.mazeresolver.strategy.RightHandResolver
 fun main() {
     // TODO: width/height はランダムな奇数にする
     val maze = Maze(
-        width = 33,
-        height = 11,
         decorator = StandardOutputDecorator(sequentialOutput = true),
     )
-    maze.setup(generator = DiggingGenerator())
+    maze.setup(
+        width = 33,
+        height = 11,
+        generator = DiggingGenerator()
+    )
     maze.buildMap()
     maze.output()
 
