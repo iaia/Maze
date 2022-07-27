@@ -1,10 +1,16 @@
 package dev.iaiabot.maze.entity
 
 import dev.iaiabot.maze.entity.decorator.Decorator
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class Maze(
     private val decorator: Decorator,
-) {
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+) : CoroutineScope {
+
+    override val coroutineContext: CoroutineContext
+        get() = dispatcher + Job()
 
     val start: Cell
         get() = cells.start!!
@@ -15,21 +21,25 @@ class Maze(
         width: Int,
         height: Int,
         generator: Generator
-    ) {
-        decorator.onChangeBuildStatus(Status.SETUP, emptyList())
+    ): Job {
+        return launch(dispatcher) {
+            decorator.onChangeBuildStatus(Status.SETUP, emptyList())
 
-        cells = Cells(width, height, decorator)
-        this.generator = generator
+            cells = Cells(width, height, decorator)
+            this@Maze.generator = generator
 
-        generator.setup(cells)
-        decorator.onChangeBuildStatus(Status.FINISH_SETUP, cells.dump())
+            generator.setup(cells)
+            decorator.onChangeBuildStatus(Status.FINISH_SETUP, cells.dump())
+        }
     }
 
-    fun buildMap() {
-        decorator.onChangeBuildStatus(Status.BUILDING, cells.dump())
-        generator.buildMap()
-        cells.checkGoalAround()
-        decorator.onChangeBuildStatus(Status.FINISH_BUILD, cells.dump())
+    fun buildMap(): Job {
+        return launch(dispatcher) {
+            decorator.onChangeBuildStatus(Status.BUILDING, cells.dump())
+            generator.buildMap()
+            cells.checkGoalAround()
+            decorator.onChangeBuildStatus(Status.FINISH_BUILD, cells.dump())
+        }
     }
 
     fun here(xy: XY): Cell? {

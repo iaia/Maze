@@ -4,29 +4,32 @@ import dev.iaiabot.maze.entity.Player
 import dev.iaiabot.maze.entity.decorator.StandardOutputDecorator
 import dev.iaiabot.maze.mazegenerator.strategy.DiggingGenerator
 import dev.iaiabot.maze.mazeresolver.strategy.RightHandResolver
+import kotlinx.coroutines.runBlocking
 
-fun main() {
+suspend fun main() {
     // TODO: width/height はランダムな奇数にする
     val maze = Maze(
         decorator = StandardOutputDecorator(sequentialOutput = false),
     )
     val diggingGenerator = DiggingGenerator(priority = DiggingGenerator.Priority.RANDOM)
 
-    fun start(generator: Generator) {
+    suspend fun start(generator: Generator) {
         maze.setup(
             width = 33,
             height = 9,
             generator = generator
-        )
-        maze.buildMap()
+        ).join()
+        maze.buildMap().join()
         maze.output()
     }
 
-    repeat(3) {
-        start(diggingGenerator)
+    runBlocking {
+        repeat(3) {
+            start(diggingGenerator)
+        }
+        start(DiggingGenerator(priority = DiggingGenerator.Priority.DEPTH_FIRST))
+        start(DiggingGenerator(priority = DiggingGenerator.Priority.BREADTH_FIRST))
     }
-    start(DiggingGenerator(priority = DiggingGenerator.Priority.DEPTH_FIRST))
-    start(DiggingGenerator(priority = DiggingGenerator.Priority.BREADTH_FIRST))
 
     // val resolver = SampleResolver()
     val resolver = RightHandResolver()

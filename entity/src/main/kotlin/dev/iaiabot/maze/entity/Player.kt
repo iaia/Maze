@@ -1,22 +1,31 @@
 package dev.iaiabot.maze.entity
 
 import dev.iaiabot.maze.entity.decorator.Decorator
+import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 class Player(
     private val maze: Maze,
     private val resolver: Resolver,
     private val decorator: Decorator,
-) {
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+) : CoroutineScope {
+
+    override val coroutineContext: CoroutineContext
+        get() = dispatcher + Job()
+
     lateinit var currentCell: Cell
     private var moveCounter: Int = 0
     private val procedures = mutableListOf<Cell>()
 
     fun start() {
-        decorator.onChangeResolveStatus(Status.START_RESOLVE, procedures)
-        moveToStartPosition()
-        decorator.onChangeResolveStatus(status = Status.RESOLVING, procedures)
-        resolver.resolve(this)
-        decorator.onChangeResolveStatus(Status.FINISH_RESOLVE, procedures)
+        launch(dispatcher) {
+            decorator.onChangeResolveStatus(Status.START_RESOLVE, procedures)
+            moveToStartPosition()
+            decorator.onChangeResolveStatus(status = Status.RESOLVING, procedures)
+            resolver.resolve(this@Player)
+            decorator.onChangeResolveStatus(Status.FINISH_RESOLVE, procedures)
+        }
     }
 
     fun move(direction: Direction) {
