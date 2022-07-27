@@ -7,27 +7,33 @@ sealed class Cell {
     val y: Int
         get() = xy.y
 
+    class Empty(override val xy: XY) : Cell() {
+        override fun toString(): String {
+            return "[Empty]"
+        }
+    }
+
     class Floor(override val xy: XY) : Cell() {
         override fun toString(): String {
-            return super.toString() + ", Floor"
+            return super.toString() + "[Floor]"
         }
     }
 
     class Wall(override val xy: XY) : Cell() {
         override fun toString(): String {
-            return super.toString() + ", Wall"
+            return super.toString() + "[Wall]"
         }
     }
 
     class Start(override val xy: XY) : Cell() {
         override fun toString(): String {
-            return super.toString() + ", Start"
+            return super.toString() + "[Start]"
         }
     }
 
     class Goal(override val xy: XY) : Cell() {
         override fun toString(): String {
-            return super.toString() + ", Goal"
+            return super.toString() + "[Goal]"
         }
     }
 

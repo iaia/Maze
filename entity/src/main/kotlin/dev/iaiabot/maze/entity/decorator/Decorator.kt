@@ -9,5 +9,5 @@ interface Decorator {
 
     fun outputSequentialBuilding(cell: Cell) {}
     fun outputSequentialResolving(procedures: Collection<Cell>) {}
-    fun fullOutput(cells: Array<Array<Cell?>>) {}
+    fun fullOutput(cells: Array<Array<Cell>>) {}
 }

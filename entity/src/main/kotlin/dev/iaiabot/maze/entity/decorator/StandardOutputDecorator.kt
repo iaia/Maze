@@ -22,7 +22,7 @@ class StandardOutputDecorator(
         }
     }
 
-    override fun fullOutput(cells: Array<Array<Cell?>>) {
+    override fun fullOutput(cells: Array<Array<Cell>>) {
         cells.forEach { column ->
             column.forEach { cell ->
                 print(

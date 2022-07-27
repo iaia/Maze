@@ -8,8 +8,10 @@ class Cells(
     val height: Int,
     private val decorator: Decorator,
 ) {
-    private val cells: Array<Array<Cell?>> = Array(height) {
-        Array(width) { null }
+    private val cells: Array<Array<Cell>> = Array(height) { y ->
+        Array(width) { x ->
+            Cell.Empty(XY(x, y))
+        }
     }
     private var wallCount: Int = 0
 
