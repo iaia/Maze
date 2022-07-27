@@ -8,8 +8,8 @@ class Cells(
     val height: Int,
     private val decorator: Decorator,
 ) {
-    private val cells: Array<Array<Cell>> = Array(height) { y ->
-        Array(width) { x ->
+    private val cells: MutableList<MutableList<Cell>> = MutableList(height) { y ->
+        MutableList(width) { x ->
             Cell.Empty(XY(x, y))
         }
     }
@@ -44,14 +44,14 @@ class Cells(
     fun here(x: Int, y: Int): Cell? =
         try {
             cells[y][x]
-        } catch (e: ArrayIndexOutOfBoundsException) {
+        } catch (e: IndexOutOfBoundsException) {
             null
         }
 
     fun here(xy: XY): Cell? =
         try {
             cells[xy.y][xy.x]
-        } catch (e: ArrayIndexOutOfBoundsException) {
+        } catch (e: IndexOutOfBoundsException) {
             null
         }
 

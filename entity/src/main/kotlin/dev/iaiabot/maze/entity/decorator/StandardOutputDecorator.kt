@@ -9,7 +9,7 @@ class StandardOutputDecorator(
 
     private var status: Status = Status.INIT
 
-    override fun onChangeBuildStatus(status: Status, cells: Array<Array<Cell?>>) {
+    override fun onChangeBuildStatus(status: Status, cells: Collection<Collection<Cell>>) {
         this.status = status
         println("$status--------------------------------")
     }
@@ -22,7 +22,7 @@ class StandardOutputDecorator(
         }
     }
 
-    override fun fullOutput(cells: Array<Array<Cell>>) {
+    override fun fullOutput(cells: Collection<Collection<Cell>>) {
         cells.forEach { column ->
             column.forEach { cell ->
                 print(

@@ -4,10 +4,10 @@ import dev.iaiabot.maze.entity.Cell
 import dev.iaiabot.maze.entity.Status
 
 interface Decorator {
-    fun onChangeBuildStatus(status: Status, cells: Array<Array<Cell>>) {}
+    fun onChangeBuildStatus(status: Status, cells: Collection<Collection<Cell>>) {}
     fun onChangeResolveStatus(status: Status, cells: Collection<Cell>) {}
 
     fun outputSequentialBuilding(cell: Cell) {}
     fun outputSequentialResolving(procedures: Collection<Cell>) {}
-    fun fullOutput(cells: Array<Array<Cell>>) {}
+    fun fullOutput(cells: Collection<Collection<Cell>>) {}
 }

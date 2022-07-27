@@ -16,7 +16,7 @@ class Maze(
         height: Int,
         generator: Generator
     ) {
-        decorator.onChangeBuildStatus(Status.SETUP, emptyArray())
+        decorator.onChangeBuildStatus(Status.SETUP, emptyList())
 
         cells = Cells(width, height, decorator)
         this.generator = generator
