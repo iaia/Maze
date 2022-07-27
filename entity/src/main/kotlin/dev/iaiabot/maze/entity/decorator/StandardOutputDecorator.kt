@@ -9,12 +9,12 @@ class StandardOutputDecorator(
 
     private var status: Status = Status.INIT
 
-    override fun onChangeStatus(status: Status, cells: Array<Array<Cell?>>) {
+    override fun onChangeBuildStatus(status: Status, cells: Array<Array<Cell?>>) {
         this.status = status
         println("$status--------------------------------")
     }
 
-    override fun sequentialOutput(cell: Cell) {
+    override fun outputSequentialBuilding(cell: Cell) {
         if (sequentialOutput) {
             if (status != Status.SETUP) {
                 println("$cell")

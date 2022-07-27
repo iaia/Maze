@@ -16,20 +16,20 @@ class Maze(
         height: Int,
         generator: Generator
     ) {
-        decorator.onChangeStatus(Status.SETUP, emptyArray())
+        decorator.onChangeBuildStatus(Status.SETUP, emptyArray())
 
         cells = Cells(width, height, decorator)
         this.generator = generator
 
         generator.setup(cells)
-        decorator.onChangeStatus(Status.FINISH_SETUP, cells.dump())
+        decorator.onChangeBuildStatus(Status.FINISH_SETUP, cells.dump())
     }
 
     fun buildMap() {
-        decorator.onChangeStatus(Status.BUILDING, cells.dump())
+        decorator.onChangeBuildStatus(Status.BUILDING, cells.dump())
         generator.buildMap()
         cells.checkGoalAround()
-        decorator.onChangeStatus(Status.FINISH_BUILD, cells.dump())
+        decorator.onChangeBuildStatus(Status.FINISH_BUILD, cells.dump())
     }
 
     fun here(xy: XY): Cell? {

@@ -36,7 +36,7 @@ class Cells(
             else -> Unit
         }
         cells[cell.y][cell.x] = cell
-        decorator.sequentialOutput(cell)
+        decorator.outputSequentialBuilding(cell)
     }
 
     fun here(x: Int, y: Int): Cell? =

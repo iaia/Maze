@@ -9,23 +9,20 @@ class Player(
 ) {
     lateinit var currentCell: Cell
     private var moveCounter: Int = 0
+    private val procedures = mutableListOf<Cell>()
 
     fun start() {
-        decorator.onChangeStatus(Status.START_RESOLVE, emptyArray())
+        decorator.onChangeResolveStatus(Status.START_RESOLVE, procedures)
         moveToStartPosition()
-        decorator.onChangeStatus(status = Status.RESOLVING, emptyArray())
+        decorator.onChangeResolveStatus(status = Status.RESOLVING, procedures)
         resolver.resolve(this)
-        decorator.onChangeStatus(Status.FINISH_RESOLVE, emptyArray())
+        decorator.onChangeResolveStatus(Status.FINISH_RESOLVE, procedures)
     }
 
     fun move(direction: Direction) {
         val xy = direction.calculate(currentCell.xy.x, currentCell.xy.y)
         when (val cell = maze.here(xy)) {
-            is Cell.Start, is Cell.Goal, is Cell.Floor -> {
-                currentCell = cell
-                moveCounter += 1
-                decorator.sequentialOutput(currentCell)
-            }
+            is Cell.Start, is Cell.Goal, is Cell.Floor -> move(cell)
             is Cell.Wall -> return
             else -> {}
         }
@@ -40,7 +37,14 @@ class Player(
     }
 
     private fun moveToStartPosition() {
-        currentCell = maze.start
-        moveCounter = 0
+        moveCounter = -1
+        move(maze.start)
+    }
+
+    private fun move(cell: Cell) {
+        currentCell = cell
+        moveCounter += 1
+        procedures.add(cell)
+        decorator.outputSequentialResolving(procedures)
     }
 }
