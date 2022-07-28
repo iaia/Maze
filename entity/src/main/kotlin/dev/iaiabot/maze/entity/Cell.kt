@@ -59,9 +59,11 @@ sealed class Cell {
         val origin: Cell,
     ) : Cell() {
         override fun toString(): String {
-            return super.toString() + "[Stepped]"
+            return super.toString() + "[Stepped:${stepped}]"
         }
 
-        override fun toStep() = this
+        override fun toStep() = this.also {
+            it.step()
+        }
     }
 }

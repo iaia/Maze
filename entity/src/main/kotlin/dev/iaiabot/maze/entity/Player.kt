@@ -53,7 +53,8 @@ class Player(
     private fun move(cell: Cell) {
         currentCell = cell
         moveCounter += 1
-        procedures.add(cell.toStep())
+        val stepped = procedures.find { it.xy == cell.xy }
+        procedures.add((stepped ?: cell).toStep())
         decorator.outputSequentialResolving(procedures)
     }
 }
