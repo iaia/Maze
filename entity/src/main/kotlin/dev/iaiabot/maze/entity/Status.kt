@@ -2,7 +2,7 @@ package dev.iaiabot.maze.entity
 
 enum class Status {
     INIT,
-    SETUP,
+    START_SETUP,
     FINISH_SETUP,
     BUILDING,
     FINISH_BUILD,

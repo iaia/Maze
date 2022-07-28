@@ -23,10 +23,12 @@ class Maze(
         generator: Generator
     ): Job {
         return launch(dispatcher) {
-            decorator.onChangeBuildStatus(Status.SETUP, emptyList())
+            decorator.onChangeBuildStatus(Status.INIT, emptyList())
 
             cells = Cells(width, height, decorator)
             this@Maze.generator = generator
+
+            decorator.onChangeBuildStatus(Status.START_SETUP, cells.dump())
 
             generator.setup(cells)
             decorator.onChangeBuildStatus(Status.FINISH_SETUP, cells.dump())
