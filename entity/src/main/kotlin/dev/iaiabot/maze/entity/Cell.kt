@@ -6,6 +6,23 @@ sealed class Cell {
         get() = xy.x
     val y: Int
         get() = xy.y
+    var stepped: Int = 0
+        private set
+
+    override fun toString(): String {
+        return "[x=${xy.x}, y=${xy.y}]"
+    }
+
+    internal fun step() {
+        stepped += 1
+    }
+
+    internal open fun toStep() = Stepped(
+        xy,
+        this
+    ).also {
+        it.step()
+    }
 
     class Empty(override val xy: XY) : Cell() {
         override fun toString(): String {
@@ -46,23 +63,5 @@ sealed class Cell {
         }
 
         override fun toStep() = this
-
-        var stepped: Int = 0
-            private set
-
-        internal fun step() {
-            stepped += 1
-        }
-    }
-
-    override fun toString(): String {
-        return "[x=${xy.x}, y=${xy.y}]"
-    }
-
-    internal open fun toStep() = Stepped(
-        xy,
-        this
-    ).also {
-        it.step()
     }
 }
