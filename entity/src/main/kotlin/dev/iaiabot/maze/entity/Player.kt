@@ -46,6 +46,7 @@ class Player(
     }
 
     private fun moveToStartPosition() {
+        procedures.clear()
         moveCounter = -1
         move(maze.start)
     }
