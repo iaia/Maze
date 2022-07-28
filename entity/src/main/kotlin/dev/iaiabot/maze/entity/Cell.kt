@@ -37,7 +37,32 @@ sealed class Cell {
         }
     }
 
+    class Stepped internal constructor(
+        override val xy: XY,
+        val origin: Cell,
+    ) : Cell() {
+        override fun toString(): String {
+            return super.toString() + "[Stepped]"
+        }
+
+        override fun toStep() = this
+
+        var stepped: Int = 0
+            private set
+
+        internal fun step() {
+            stepped += 1
+        }
+    }
+
     override fun toString(): String {
         return "[x=${xy.x}, y=${xy.y}]"
+    }
+
+    internal open fun toStep() = Stepped(
+        xy,
+        this
+    ).also {
+        it.step()
     }
 }

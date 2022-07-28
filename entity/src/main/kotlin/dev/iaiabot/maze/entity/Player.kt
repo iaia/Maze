@@ -53,7 +53,7 @@ class Player(
     private fun move(cell: Cell) {
         currentCell = cell
         moveCounter += 1
-        procedures.add(cell)
+        procedures.add(cell.toStep())
         decorator.outputSequentialResolving(procedures)
     }
 }
