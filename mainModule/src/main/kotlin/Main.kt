@@ -35,7 +35,10 @@ suspend fun main() {
     val resolver = RightHandResolver()
     //val resolver = TremorResolver()
     val player = Player(maze, resolver, decorator = StandardOutputDecorator(sequentialOutput = true))
-    // player.start()
+
+    runBlocking {
+        player.start().join()
+    }
 
     //println("result: ${player.isGoal()}")
 }

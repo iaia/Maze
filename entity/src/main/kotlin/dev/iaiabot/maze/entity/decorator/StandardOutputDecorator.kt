@@ -22,6 +22,10 @@ class StandardOutputDecorator(
         }
     }
 
+    override fun outputSequentialResolving(procedures: Collection<Cell>) {
+        println(procedures.last())
+    }
+
     override fun fullOutput(cells: Collection<Collection<Cell>>) {
         cells.forEach { column ->
             column.forEach { cell ->

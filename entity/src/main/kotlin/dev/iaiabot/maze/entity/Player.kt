@@ -18,8 +18,8 @@ class Player(
     private var moveCounter: Int = 0
     private val procedures = mutableListOf<Cell>()
 
-    fun start() {
-        launch(dispatcher) {
+    fun start(): Job {
+        return launch(dispatcher) {
             decorator.onChangeResolveStatus(Status.START_RESOLVE, procedures)
             moveToStartPosition()
             decorator.onChangeResolveStatus(status = Status.RESOLVING, procedures)
