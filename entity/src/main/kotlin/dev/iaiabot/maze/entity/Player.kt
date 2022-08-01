@@ -52,7 +52,12 @@ class Player(
 
             val shortestPathFinder = ShortestPathFinder(procedures, procedureScores)
 
-            val shortestPath = shortestPathFinder.find()
+            val shortestPath = shortestPathFinder.find { shortestPath ->
+                decorator.outputSequentialResolving(
+                    shortestPath
+                )
+            }
+
             decorator.onChangeResolveStatus(
                 Status.FINISH_FIND_SHORTEST_PATH,
                 shortestPath,

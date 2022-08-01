@@ -17,7 +17,7 @@ class ShortestPathFinder(
         }
     }
 
-    fun find(): List<Cell> {
+    fun find(decorate: (List<Cell>) -> Unit): List<Cell> {
         var neighbor: Cell? = proceduresAndScores.findLast {
             val cell = it.first
             if (cell is Cell.Stepped) {
@@ -33,6 +33,7 @@ class ShortestPathFinder(
             neighbor = findShortestNeighbor(neighbor)
             if (neighbor != null) {
                 shortestPath.add(neighbor)
+                decorate(shortestPath)
                 if (neighbor is Cell.Stepped && neighbor.origin is Cell.Start) {
                     break
                 }
