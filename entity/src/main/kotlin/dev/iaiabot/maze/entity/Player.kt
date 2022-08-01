@@ -46,16 +46,18 @@ class Player(
         return maze.here(direction.calculate(currentCell.xy))
     }
 
-    fun findShortestPath() {
-        decorator.onChangeResolveStatus(Status.START_FIND_SHORTEST_PATH, emptyList())
+    fun findShortestPath(): Job {
+        return launch(dispatcher) {
+            decorator.onChangeResolveStatus(Status.START_FIND_SHORTEST_PATH, emptyList())
 
-        val shortestPathFinder = ShortestPathFinder(procedures, procedureScores)
+            val shortestPathFinder = ShortestPathFinder(procedures, procedureScores)
 
-        val shortestPath = shortestPathFinder.find()
-        decorator.onChangeResolveStatus(
-            Status.FINISH_FIND_SHORTEST_PATH,
-            shortestPath,
-        )
+            val shortestPath = shortestPathFinder.find()
+            decorator.onChangeResolveStatus(
+                Status.FINISH_FIND_SHORTEST_PATH,
+                shortestPath,
+            )
+        }
     }
 
     private fun moveToStartPosition() {
