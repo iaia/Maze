@@ -14,7 +14,7 @@ class Player(
     override val coroutineContext: CoroutineContext
         get() = dispatcher + Job()
 
-    lateinit var currentCell: Cell
+    private lateinit var currentCell: Cell
     private var moveCounter: Int = 0
     private val procedures = mutableListOf<Cell>()
     private val procedureScores = mutableListOf<Int>()
@@ -24,12 +24,18 @@ class Player(
             decorator.onChangeResolveStatus(Status.START_RESOLVE, procedures)
             moveToStartPosition()
             decorator.onChangeResolveStatus(status = Status.RESOLVING, procedures)
-            resolver.resolve(this@Player)
+            resolver.resolve(
+                { currentCell },
+                { currentPosition() },
+                { isGoal() },
+                { checkCell(it) },
+                { move(it) },
+            )
             decorator.onChangeResolveStatus(Status.FINISH_RESOLVE, procedures)
         }
     }
 
-    fun move(direction: Direction) {
+    private fun move(direction: Direction) {
         val xy = direction.calculate(currentCell.xy.x, currentCell.xy.y)
         when (val cell = maze.here(xy)) {
             is Cell.Start, is Cell.Goal, is Cell.Floor -> move(cell)
@@ -38,11 +44,11 @@ class Player(
         }
     }
 
-    fun isGoal(): Boolean = maze.here(currentPosition()) is Cell.Goal
+    private fun isGoal(): Boolean = maze.here(currentPosition()) is Cell.Goal
 
-    fun currentPosition(): XY = currentCell.xy
+    private fun currentPosition(): XY = currentCell.xy
 
-    fun checkCell(direction: Direction): Cell? {
+    private fun checkCell(direction: Direction): Cell? {
         return maze.here(direction.calculate(currentCell.xy))
     }
 

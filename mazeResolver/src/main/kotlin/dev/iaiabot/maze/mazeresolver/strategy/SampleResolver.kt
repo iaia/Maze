@@ -1,25 +1,34 @@
 package dev.iaiabot.maze.mazeresolver.strategy
 
-import dev.iaiabot.maze.entity.*
+import dev.iaiabot.maze.entity.Cell
+import dev.iaiabot.maze.entity.Direction
+import dev.iaiabot.maze.entity.Resolver
+import dev.iaiabot.maze.entity.XY
 
 // sample generator のみ解決出来るresolver
 // それ以外は6手以上かかる場合に失敗する
 class SampleResolver : Resolver {
     private val footprints = mutableListOf<XY>()
 
-    override fun resolve(player: Player) {
+    override fun resolve(
+        currentCell: () -> Cell,
+        currentPosition: () -> XY,
+        isGoal: () -> Boolean,
+        checkCell: (Direction) -> Cell?,
+        move: (Direction) -> Unit,
+    ) {
         var counter = 0
 
-        while (!player.isGoal() && counter <= 6) {
+        while (!isGoal() && counter <= 6) {
             counter += 1
-            footprints.add(player.currentPosition())
-            val direction = lookAround(player)
-            player.move(direction)
+            footprints.add(currentPosition())
+            val direction = lookAround(checkCell)
+            move(direction)
         }
     }
 
-    private fun lookAround(player: Player): Direction {
-        var cell = player.checkCell(Direction.LEFT)
+    private fun lookAround(checkCell: (Direction) -> Cell?): Direction {
+        var cell = checkCell(Direction.LEFT)
         if (
             cell != null &&
             cell !is Cell.Wall &&
@@ -27,7 +36,7 @@ class SampleResolver : Resolver {
         ) {
             return Direction.LEFT
         }
-        cell = player.checkCell(Direction.RIGHT)
+        cell = checkCell(Direction.RIGHT)
         if (
             cell != null &&
             cell !is Cell.Wall &&
@@ -35,7 +44,7 @@ class SampleResolver : Resolver {
         ) {
             return Direction.RIGHT
         }
-        cell = player.checkCell(Direction.ABOVE)
+        cell = checkCell(Direction.ABOVE)
         if (
             cell != null &&
             cell !is Cell.Wall &&
@@ -43,7 +52,7 @@ class SampleResolver : Resolver {
         ) {
             return Direction.ABOVE
         }
-        cell = player.checkCell(Direction.BELOW)
+        cell = checkCell(Direction.BELOW)
         if (
             cell != null &&
             cell !is Cell.Wall &&

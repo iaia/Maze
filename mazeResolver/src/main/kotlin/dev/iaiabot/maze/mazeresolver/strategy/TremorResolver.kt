@@ -2,26 +2,32 @@ package dev.iaiabot.maze.mazeresolver.strategy
 
 import dev.iaiabot.maze.entity.Cell
 import dev.iaiabot.maze.entity.Direction
-import dev.iaiabot.maze.entity.Player
 import dev.iaiabot.maze.entity.Resolver
+import dev.iaiabot.maze.entity.XY
 
 class TremorResolver : Resolver {
     private val alreadyPassBranches = mutableListOf<Cell?>()
 
-    override fun resolve(player: Player) {
+    override fun resolve(
+        currentCell: () -> Cell,
+        currentPosition: () -> XY,
+        isGoal: () -> Boolean,
+        checkCell: (Direction) -> Cell?,
+        move: (Direction) -> Unit,
+    ) {
         var counter = 0
         var previousCell: Cell? = null
 
-        while (!player.isGoal() && counter < 1000) {
+        while (!isGoal() && counter < 1000) {
             counter += 1
 
             // 今いる周囲を見渡す
             val allDirection: Map<Direction, Cell?> = Direction.values().associateWith { direction ->
-                val cell = player.checkCell(direction)
+                val cell = checkCell(direction)
                 // もしゴールがすでにあれば探索を中断してそちらへ進む
                 if (cell is Cell.Goal) {
                     previousCell = cell
-                    player.move(direction)
+                    move(direction)
                     return
                 }
                 cell
@@ -31,14 +37,14 @@ class TremorResolver : Resolver {
                 0 -> throw Exception()
                 1 -> {
                     // 1方向しか無い(つまり行き止まり)の場合、戻る
-                    previousCell = player.currentCell
-                    player.move(floorDirection.keys.first())
+                    previousCell = currentCell()
+                    move(floorDirection.keys.first())
                 }
                 2 -> {
                     // 2方向しか床が無い場合(つまり通路)、前回通った床以外を通る
                     floorDirection.entries.find { it.value != previousCell }?.also {
-                        previousCell = player.currentCell
-                        player.move(it.key)
+                        previousCell = currentCell()
+                        move(it.key)
                     }
                 }
                 else -> {
@@ -51,9 +57,9 @@ class TremorResolver : Resolver {
                         val cell = anyOne.value ?: throw Exception()
                         // 前回通った床と、今回通ろうとする床を記憶する (分岐床)
                         alreadyPassBranches.add(previousCell)
-                        previousCell = player.currentCell
+                        previousCell = currentCell()
                         alreadyPassBranches.add(cell)
-                        player.move(anyOne.key)
+                        move(anyOne.key)
                     }
                 }
             }
