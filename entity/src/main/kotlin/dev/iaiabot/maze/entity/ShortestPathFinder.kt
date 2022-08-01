@@ -5,7 +5,7 @@ class ShortestPathFinder(
     scores: List<Int>,
 ) {
     private val proceduresAndScores: List<Pair<Cell, Int>>
-    private val shortestPath = mutableListOf<Cell>()
+    private val shortestPath = mutableListOf<Cell.Shortest>()
 
     init {
         if (procedures.size != scores.size) {
@@ -18,14 +18,14 @@ class ShortestPathFinder(
     }
 
     fun find(decorate: (List<Cell>) -> Unit): List<Cell> {
-        var neighbor: Cell? = proceduresAndScores.findLast {
+        var neighbor: Cell.Shortest? = proceduresAndScores.findLast {
             val cell = it.first
             if (cell is Cell.Stepped) {
                 cell.origin is Cell.Goal
             } else {
                 false
             }
-        }?.first
+        }?.first?.toShortest()
 
         shortestPath.add(neighbor ?: throw Exception())
 
@@ -34,7 +34,7 @@ class ShortestPathFinder(
             if (neighbor != null) {
                 shortestPath.add(neighbor)
                 decorate(shortestPath)
-                if (neighbor is Cell.Stepped && neighbor.origin is Cell.Start) {
+                if (neighbor.origin is Cell.Start) {
                     break
                 }
             } else {
@@ -45,7 +45,7 @@ class ShortestPathFinder(
         return shortestPath
     }
 
-    private fun findShortestNeighbor(cell: Cell): Cell? {
+    private fun findShortestNeighbor(cell: Cell): Cell.Shortest? {
         val left = Direction.LEFT.calculate(cell.xy)
         val right = Direction.RIGHT.calculate(cell.xy)
         val above = Direction.ABOVE.calculate(cell.xy)
@@ -71,6 +71,6 @@ class ShortestPathFinder(
             belowCellScore,
         ).minByOrNull { it?.second ?: Int.MAX_VALUE }
 
-        return shortestPath?.first
+        return shortestPath?.first?.toShortest()
     }
 }

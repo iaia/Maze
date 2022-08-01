@@ -24,6 +24,15 @@ sealed class Cell {
         it.step()
     }
 
+    internal open fun toShortest() = Shortest(
+        xy,
+        if (this is Stepped) {
+            this.origin
+        } else {
+            this
+        },
+    )
+
     class Empty(override val xy: XY) : Cell() {
         override fun toString(): String {
             return "[Empty]"
@@ -64,6 +73,23 @@ sealed class Cell {
 
         override fun toStep() = this.also {
             it.step()
+        }
+    }
+
+    class Shortest internal constructor(
+        override val xy: XY,
+        val origin: Cell,
+    ) : Cell() {
+        override fun toString(): String {
+            return super.toString() + "[Shortest]"
+        }
+
+        override fun toStep(): Stepped {
+            throw UnsupportedOperationException()
+        }
+
+        override fun toShortest(): Shortest {
+            throw UnsupportedOperationException()
         }
     }
 }
