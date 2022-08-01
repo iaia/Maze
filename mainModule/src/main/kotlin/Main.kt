@@ -40,5 +40,7 @@ suspend fun main() {
         player.start().join()
     }
 
+    player.findShortestPath()
+
     //println("result: ${player.isGoal()}")
 }

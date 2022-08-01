@@ -17,6 +17,7 @@ class Player(
     lateinit var currentCell: Cell
     private var moveCounter: Int = 0
     private val procedures = mutableListOf<Cell>()
+    private val procedureScores = mutableListOf<Int>()
 
     fun start(): Job {
         return launch(dispatcher) {
@@ -45,8 +46,21 @@ class Player(
         return maze.here(direction.calculate(currentCell.xy))
     }
 
+    fun findShortestPath() {
+        decorator.onChangeResolveStatus(Status.START_FIND_SHORTEST_PATH, emptyList())
+
+        val shortestPathFinder = ShortestPathFinder(procedures, procedureScores)
+
+        val shortestPath = shortestPathFinder.find()
+        decorator.onChangeResolveStatus(
+            Status.FINISH_FIND_SHORTEST_PATH,
+            shortestPath,
+        )
+    }
+
     private fun moveToStartPosition() {
         procedures.clear()
+        procedureScores.clear()
         moveCounter = -1
         move(maze.start)
     }
@@ -56,6 +70,7 @@ class Player(
         moveCounter += 1
         val stepped = procedures.find { it.xy == cell.xy }
         procedures.add((stepped ?: cell).toStep())
+        procedureScores.add(moveCounter)
         decorator.outputSequentialResolving(procedures)
     }
 }
